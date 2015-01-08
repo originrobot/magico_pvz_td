@@ -1,0 +1,244 @@
+fileFormatVersion: 2
+guid: dd32e9376e024614986ad966ccc08c30
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: enemy25_motion-hd_0
+    21300002: enemy25_motion-hd_1
+    21300004: enemy25_motion-hd_2
+    21300006: enemy25_motion-hd_3
+    21300008: enemy25_motion-hd_4
+    21300010: enemy25_motion-hd_5
+    21300012: enemy25_motion-hd_6
+    21300014: enemy25_motion-hd_7
+    21300016: enemy25_motion-hd_8
+    21300018: enemy25_motion-hd_9
+    21300020: enemy25_motion-hd_10
+    21300022: enemy25_motion-hd_11
+    21300024: enemy25_motion-hd_12
+    21300026: enemy25_motion-hd_13
+    21300028: enemy25_motion-hd_15
+    21300030: enemy25_motion-hd_17
+    21300032: unit10_0
+    21300034: unit10_1
+    21300036: unit10_2
+    21300038: unit10_3
+    21300040: unit10_4
+    21300042: unit10_5
+    21300044: unit10_6
+    21300046: unit10_7
+    21300048: unit10_8
+    21300050: unit10_9
+    21300052: unit10_10
+    21300054: unit10_11
+    21300056: unit10_12
+    21300058: unit10_13
+    21300060: unit10_14
+    21300062: unit10_15
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 200
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: unit10_0
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 724
+        width: 211
+        height: 233
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_1
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 724
+        width: 212
+        height: 229
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_2
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 724
+        width: 211
+        height: 225
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_3
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 724
+        width: 212
+        height: 229
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_4
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 484
+        width: 213
+        height: 233
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_5
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 484
+        width: 213
+        height: 228
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_6
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 484
+        width: 213
+        height: 222
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_7
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 484
+        width: 213
+        height: 228
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_8
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 244
+        width: 223
+        height: 232
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_9
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 244
+        width: 229
+        height: 220
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_10
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 244
+        width: 236
+        height: 220
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_11
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 244
+        width: 239
+        height: 220
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_12
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 4
+        width: 222
+        height: 236
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_13
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 4
+        width: 236
+        height: 232
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_14
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 4
+        width: 214
+        height: 226
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit10_15
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 4
+        width: 226
+        height: 210
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 

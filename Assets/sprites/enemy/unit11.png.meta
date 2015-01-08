@@ -1,0 +1,244 @@
+fileFormatVersion: 2
+guid: b9e1e94a881bafd4aaae31c59d489684
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: enemy26_motion-hd_0
+    21300002: enemy26_motion-hd_1
+    21300004: enemy26_motion-hd_2
+    21300006: enemy26_motion-hd_3
+    21300008: enemy26_motion-hd_4
+    21300010: enemy26_motion-hd_5
+    21300012: enemy26_motion-hd_6
+    21300014: enemy26_motion-hd_7
+    21300016: enemy26_motion-hd_8
+    21300018: enemy26_motion-hd_9
+    21300020: enemy26_motion-hd_10
+    21300022: enemy26_motion-hd_11
+    21300024: enemy26_motion-hd_12
+    21300026: enemy26_motion-hd_13
+    21300028: enemy26_motion-hd_14
+    21300030: enemy26_motion-hd_16
+    21300032: unit11_0
+    21300034: unit11_1
+    21300036: unit11_2
+    21300038: unit11_3
+    21300040: unit11_4
+    21300042: unit11_5
+    21300044: unit11_6
+    21300046: unit11_7
+    21300048: unit11_8
+    21300050: unit11_9
+    21300052: unit11_10
+    21300054: unit11_11
+    21300056: unit11_12
+    21300058: unit11_13
+    21300060: unit11_14
+    21300062: unit11_15
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 200
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: unit11_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 724
+        width: 208
+        height: 200
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_1
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 728
+        width: 226
+        height: 208
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_2
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 728
+        width: 230
+        height: 232
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_3
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 728
+        width: 226
+        height: 208
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_4
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 484
+        width: 208
+        height: 200
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 488
+        width: 226
+        height: 208
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_6
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 488
+        width: 230
+        height: 232
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_7
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 488
+        width: 226
+        height: 208
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_8
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 248
+        width: 186
+        height: 188
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_9
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 248
+        width: 228
+        height: 228
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_10
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 248
+        width: 221
+        height: 232
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_11
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 248
+        width: 224
+        height: 208
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_12
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 8
+        width: 233
+        height: 212
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_13
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 19
+        width: 202
+        height: 193
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_14
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 34
+        width: 218
+        height: 178
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: unit11_15
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 2
+        width: 223
+        height: 134
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 

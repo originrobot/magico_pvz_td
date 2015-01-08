@@ -1,2 +1,4 @@
-# magico_pvz_td
-magico which combines pvz and tower defense mechanic
+magico
+======
+
+funtastic games' first behavior driven game, started from 2014.10.20.

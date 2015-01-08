@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - unit
+  - nothing
+  - npc
+  - BattleGrid
+  - WPPathfinder
+  - Waypoint
+  - Obst
+  - Enemy
+  - EnemyBoard
+  - UnitCost
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - scene
+  - character
+  - skills
+  - ignore
+  - buttons
+  - numbers
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    userID: 0
+    uniqueID: 0
+    locked: 1
+  - name: background
+    userID: 1
+    uniqueID: 4095460111
+    locked: 0
+  - name: scene
+    userID: 4
+    uniqueID: 1214066127
+    locked: 0
+  - name: character
+    userID: 2
+    uniqueID: 643392017
+    locked: 0
+  - name: numbers
+    userID: 5
+    uniqueID: 3075749961
+    locked: 0
+  - name: skills
+    userID: 3
+    uniqueID: 802114671
+    locked: 0

@@ -1,0 +1,229 @@
+fileFormatVersion: 2
+guid: 5591e5d2d8ef4de46a0a4a1b83267617
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: melee_0
+    21300002: melee_1
+    21300004: melee_2
+    21300006: melee_3
+    21300008: melee_4
+    21300010: melee_5
+    21300012: melee_6
+    21300014: melee_7
+    21300016: melee_8
+    21300018: melee_9
+    21300020: melee_10
+    21300022: melee_11
+    21300024: melee_13
+    21300026: melee_16
+    21300028: melee_17
+    21300030: melee_20
+    21300032: melee_21
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 70
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: melee_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 360
+        width: 51
+        height: 69
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_1
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 360
+        width: 54
+        height: 69
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_2
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 360
+        width: 56
+        height: 72
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_3
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 360
+        width: 54
+        height: 69
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_4
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 240
+        width: 60
+        height: 70
+      alignment: 9
+      pivot: {x: .5, y: .0500000007}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_5
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 240
+        width: 62
+        height: 72
+      alignment: 9
+      pivot: {x: .5, y: .0500000007}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_6
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 240
+        width: 61
+        height: 74
+      alignment: 9
+      pivot: {x: .5, y: .0599999987}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_7
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 240
+        width: 62
+        height: 72
+      alignment: 9
+      pivot: {x: .5, y: .0500000007}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_8
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 120
+        width: 58
+        height: 76
+      alignment: 9
+      pivot: {x: .680000007, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_9
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 120
+        width: 60
+        height: 69
+      alignment: 9
+      pivot: {x: .349999994, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_10
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 120
+        width: 67
+        height: 73
+      alignment: 9
+      pivot: {x: .649999976, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_11
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 120
+        width: 70
+        height: 65
+      alignment: 9
+      pivot: {x: .649999976, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_13
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 0
+        width: 99
+        height: 86
+      alignment: 9
+      pivot: {x: .409999996, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_16
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 0
+        width: 109
+        height: 71
+      alignment: 9
+      pivot: {x: .439999998, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_17
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 0
+        width: 117
+        height: 46
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: melee_20
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 0
+        width: 94
+        height: 81
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
