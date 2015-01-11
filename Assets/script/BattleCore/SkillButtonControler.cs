@@ -210,6 +210,8 @@ public class SkillButtonControler : MonoBehaviour
 
 			setState(NOTREADYSTATE);
 		}
+		else
+			setState(NOTREADYSTATE);
 	}
 	public int getState()
 	{

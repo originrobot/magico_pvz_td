@@ -93,6 +93,10 @@ public class BattleGrid : MonoBehaviour {
 	private GameObject artifact1;
 	private GameObject artifact2;
 	private GameObject artifact3;
+	private GameObject artifact4;
+	private GameObject artifact5;
+	private GameObject artifact6;
+	private float spawnSpeed = 15f;
 	void Awake () {
 		Application.targetFrameRate = 30;
 		gameObject.tag = "BattleGrid";
@@ -219,12 +223,21 @@ public class BattleGrid : MonoBehaviour {
 		artifact1 = GameObject.Find ("artifact1");
 		artifact2 = GameObject.Find ("artifact2");
 		artifact3 = GameObject.Find ("artifact3");
+		artifact4 = GameObject.Find ("artifact4");
+		artifact5 = GameObject.Find ("artifact5");
+		artifact6 = GameObject.Find ("artifact6");
 		artifact1.GetComponent<Unit> ().enemy = true;
 		artifact2.GetComponent<Unit> ().enemy = true;
 		artifact3.GetComponent<Unit> ().enemy = true;
+		artifact4.GetComponent<Unit> ().enemy = false;
+		artifact5.GetComponent<Unit> ().enemy = false;
+		artifact6.GetComponent<Unit> ().enemy = false;
 		objects [0, 2].Add (artifact1.GetComponent<Unit> ());
 		objects [0, 1].Add (artifact2.GetComponent<Unit> ());
 		objects [0, 0].Add (artifact3.GetComponent<Unit> ());
+		objects [0, 2].Add (artifact4.GetComponent<Unit> ());
+		objects [0, 1].Add (artifact5.GetComponent<Unit> ());
+		objects [0, 0].Add (artifact6.GetComponent<Unit> ());
 //		labelStageWave = GameObject.Find("labelStageWave");
 
 
@@ -249,34 +262,37 @@ public class BattleGrid : MonoBehaviour {
 			++count;
 		}
 	}
-
+	IEnumerator spawnEnemy()
+	{
+		while(true)
+		{
+			if(gameStarted)
+			{
+				int r = Random.Range(0,5);
+				spawnEnemyUnit(availableUnits[r]);
+				yield return new WaitForSeconds(spawnSpeed);
+			}
+			yield return null;
+		}
+	}
 	public void spawnEnemyUnit(string prefabName)
 	{
 		GameObject go = GameObject.Instantiate(unitPrefabs[prefabName]);
 		go.transform.parent = transform;
 		int attackRange = go.GetComponent<UnitBase>().getRange();
-		int col = enemyTeamFrontLine + (attackRange-1);
-		int row = -1;
-		getEmptyCoord(ref col, ref row, -1);
-		if (row != -1) 
+		int row = Random.Range (0,3);
+		go.GetComponent<GridObject>().AssignCoord(0, row);
+		go.transform.position = coordToPosition (new Vector2(0.4f,row));
+		objects[0,row].Add (go.GetComponent<Unit>());
+		Unit unit = go.GetComponent<Unit>();
+		if(unit != null)
 		{
-			go.GetComponent<GridObject>().AssignCoord(col, row);
-			objects[0,row].Add (go.GetComponent<Unit>());
-			Unit unit = go.GetComponent<Unit>();
-			if(unit != null)
-			{
-				unit.enemy = true;
-				unit.name = unit.character_id;
-				unit.character_id = unit.character_id+System.DateTime.Now.Millisecond;
-				unit.attackRange = unit.gameObject.GetComponent<UnitBase>().getRange();
-				enemies.Add(unit);
-				enemyTeamFrontLine = enemyTeamFrontLine<col+cols/2?enemyTeamFrontLine:col+cols/2;
-				unit.BeginMovement();
-			}
-		}
-		else
-		{
-			Destroy(go);
+			unit.enemy = true;
+			unit.name = unit.character_id;
+			unit.character_id = unit.character_id+System.DateTime.Now.Millisecond;
+			unit.attackRange = unit.gameObject.GetComponent<UnitBase>().getRange();
+			enemies.Add(unit);
+			unit.BeginMovement();
 		}
 	}
 
@@ -324,6 +340,9 @@ public class BattleGrid : MonoBehaviour {
 		enemies.Add (artifact1.GetComponent<Unit> ());
 		enemies.Add (artifact2.GetComponent<Unit> ());
 		enemies.Add (artifact3.GetComponent<Unit> ());
+		heroes.Add (artifact4.GetComponent<Unit> ());
+		heroes.Add (artifact5.GetComponent<Unit> ());
+		heroes.Add (artifact6.GetComponent<Unit> ());
 		restartButton.SetActive (false);
 		startButton.SetActive (true);
 
@@ -347,16 +366,18 @@ public class BattleGrid : MonoBehaviour {
 
 	private void gameOver(bool winning)
 	{
+		StopCoroutine ("spawnEnemy");
+		StopCoroutine ("generateMana");
 		restartButton.SetActive (true);
 	}
 	public List<Unit> getUnitByRow(int row, bool isEnemy)
 	{
-		Debug.Log ("getUnitByRow-- row" + row+",isEnemy="+isEnemy);
+//		Debug.Log ("getUnitByRow-- row" + row+",isEnemy="+isEnemy);
 		List<Unit> units = new List<Unit>();
 		if (row >= rows || row < 0) return null; 
 		foreach(Unit u in objects [0, row])
 		{
-			Debug.Log ("getUnitByRow-- u.enemy=" + u.enemy);
+//			Debug.Log ("getUnitByRow-- u.enemy=" + u.enemy);
 			if(u.enemy != isEnemy)
 				units.Add (u);
 		}
@@ -369,7 +390,7 @@ public class BattleGrid : MonoBehaviour {
 
 	public Vector3 coordToPosition(Vector2 coord)
 	{
-		Vector3 localPosition = new Vector3(0f, coord.y/rows-0.5f, 0f);
+		Vector3 localPosition = new Vector3(coord.x, coord.y/rows-0.5f, 0f);
 		return boxCollider.transform.localToWorldMatrix.MultiplyPoint (localPosition);
 	}
 
@@ -398,7 +419,7 @@ public class BattleGrid : MonoBehaviour {
 	public void OnStartButtonClicked()
 	{
 		startButton.SetActive (false);
-
+		StartCoroutine ("spawnEnemy");
 		StartCoroutine ("generateMana");
 		StartGame ();
 		gameStarted = true;
@@ -485,6 +506,7 @@ public class BattleGrid : MonoBehaviour {
 		Vector3 worldPosition = new Vector3(gesture.Position.x, gesture.Position.y, transform.position.z);
 		worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
 		Vector2 coord = positionToCoord(worldPosition);
+		coord += new Vector2 (-0.4f,0f);
 		Vector3 localPosition = coordToPosition(coord);
 
 		if (!unitPrefabs.ContainsKey(tappedButtonCtrl.unitId)) 

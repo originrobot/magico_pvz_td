@@ -393,18 +393,19 @@ public class Unit : MonoBehaviour
 	}
 	IEnumerator FindTarget()
 	{
-		Debug.Log ("FindTarget.....");
-		List<Unit> enemies = BattleGrid.instance.getUnitByRow(gridObject.row,isEnemy);
 		float cooldown = this.gameObject.GetComponent<UnitBase> ().getCoolDown ();
+		List<Unit> enemies;
 		targets = new List<Unit> ();
 		while (true) 
 		{
+			enemies = BattleGrid.instance.getUnitByRow(gridObject.row,isEnemy);
 			targets.Clear();
 			foreach(Unit enemy in enemies)
 			{
 				if(isTargetInRange(enemy))
 					targets.Add(enemy);
 			}
+
 			if(targets.Count>0 && !isFrozen && isAlive)
 			{
 				changeAninationState (IDLE_STATE);
@@ -430,6 +431,7 @@ public class Unit : MonoBehaviour
 	}
 	private bool isTargetInRange(Unit target)
 	{
+//		Debug.Log ("isTargetInRange:"+(transform.position.x - target.transform.position.x));
 		return Mathf.Abs (transform.position.x - target.transform.position.x) <= attackRange;
 	}
 	IEnumerator AttackTarget(float cooldown)
