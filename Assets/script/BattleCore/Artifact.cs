@@ -8,20 +8,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-
-public class UnitTypes
+public class Artifact:UnitBase
 {
-	public const int TANK = 1;
-	public const int ROGUE = 2;
-	public const int MAGE = 3;
-	public const int ARCHER = 4;
-	public const int SHAMAN = 5;
-	public const int ARTIFACT = 6;
-	public const int HERO = 7;
-	public const int WATERELEMENT = 1;
-	public const int FIREELEMENT = 2;
-	public const int WOODELEMENT = 3;
-	public UnitTypes ()
+	public Artifact ()
 	{
+		unitType = UnitTypes.ARTIFACT;
+		this.attackPower = 0;
+		this.defensePower = 100;
+		this.range = 0;
+		this.maxHP = 2000;
+		this.HP = maxHP;
+		criticalRate = 0;
+		criticalFactor = 1f;
+		coolDown =0f;
+		coolDownFactor = 0f;
 	}
 }
+

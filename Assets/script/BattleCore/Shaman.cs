@@ -22,6 +22,7 @@ public class Shaman: UnitBase
 		criticalFactor = 2f;
 		coolDown = 2.5f;
 		coolDownFactor = 0f;
+		movingSpeed = 2f;
 	}
 	public override float getAttackPower(UnitBase targetUnit)
 	{

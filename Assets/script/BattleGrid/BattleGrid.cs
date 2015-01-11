@@ -90,6 +90,9 @@ public class BattleGrid : MonoBehaviour {
 	private GameObject currentSelectedUnit;
 	public float refundFactor = 0.5f;
 	private GameObject manaDropPrefab;
+	private GameObject artifact1;
+	private GameObject artifact2;
+	private GameObject artifact3;
 	void Awake () {
 		Application.targetFrameRate = 30;
 		gameObject.tag = "BattleGrid";
@@ -116,12 +119,19 @@ public class BattleGrid : MonoBehaviour {
 
 	void Start()
 	{
-//		sceneController = GameObject.Find("GameScene").GetComponent<SceneController> ();
+
 		tileMap = GameObject.Find ("TileMap").GetComponent<TileMap>();
 		ts = tileMap.GetComponent<TileSelection> ();
-//		defeatText = GameObject.Find ("DefeatText");
-//		if (defeatText != null) defeatText.GetComponent<HUDText>().Add("Try to survive 3 wave of enemies...",Color.white,2);
-//		initWaves ();
+		foreach (string str in availableUnits) 
+		{
+			GameObject unit_prefab = (GameObject)Resources.Load(str+"Prefab");
+			unitPrefabs[str] = unit_prefab;
+		}
+		objects = new List<Unit>[1, 3];
+		for (int i=0; i<3; i++) 
+		{
+			objects[0,i] = new List<Unit>();
+		}
 		initButtons ();
 		startGame ();
 		AP = max_ap;
@@ -206,6 +216,15 @@ public class BattleGrid : MonoBehaviour {
 //		timerBar.transform.parent.gameObject.SetActive (false);
 		manaBar = GameObject.Find ("ManaBar");
 		restartButton.SetActive(false);
+		artifact1 = GameObject.Find ("artifact1");
+		artifact2 = GameObject.Find ("artifact2");
+		artifact3 = GameObject.Find ("artifact3");
+		artifact1.GetComponent<Unit> ().enemy = true;
+		artifact2.GetComponent<Unit> ().enemy = true;
+		artifact3.GetComponent<Unit> ().enemy = true;
+		objects [0, 2].Add (artifact1.GetComponent<Unit> ());
+		objects [0, 1].Add (artifact2.GetComponent<Unit> ());
+		objects [0, 0].Add (artifact3.GetComponent<Unit> ());
 //		labelStageWave = GameObject.Find("labelStageWave");
 
 
@@ -302,8 +321,12 @@ public class BattleGrid : MonoBehaviour {
 			manaBar.GetComponent<EnergyBar> ().SetValueMax((int)max_ap);
 			updateManaBar ();
 		}
+		enemies.Add (artifact1.GetComponent<Unit> ());
+		enemies.Add (artifact2.GetComponent<Unit> ());
+		enemies.Add (artifact3.GetComponent<Unit> ());
 		restartButton.SetActive (false);
 		startButton.SetActive (true);
+
 	}
 	void Update()
 	{
@@ -326,12 +349,17 @@ public class BattleGrid : MonoBehaviour {
 	{
 		restartButton.SetActive (true);
 	}
-	public List<Unit> getUnitByRow(int row)
+	public List<Unit> getUnitByRow(int row, bool isEnemy)
 	{
-	
-		List<Unit> units = null;
-		if (row < rows && row>=0) 
-			units = objects [0, row];
+		Debug.Log ("getUnitByRow-- row" + row+",isEnemy="+isEnemy);
+		List<Unit> units = new List<Unit>();
+		if (row >= rows || row < 0) return null; 
+		foreach(Unit u in objects [0, row])
+		{
+			Debug.Log ("getUnitByRow-- u.enemy=" + u.enemy);
+			if(u.enemy != isEnemy)
+				units.Add (u);
+		}
 		return units;
 	}
 	public void removeUnit(int row,Unit unit)
@@ -341,16 +369,17 @@ public class BattleGrid : MonoBehaviour {
 
 	public Vector3 coordToPosition(Vector2 coord)
 	{
-		Vector3 localPosition = new Vector3((coord.x +0.5f)/cols-0.5f, (coord.y +0.6f)/rows-0.6f, -0.5f + coord.y * 0.1f);
+		Vector3 localPosition = new Vector3(0f, coord.y/rows-0.5f, 0f);
 		return boxCollider.transform.localToWorldMatrix.MultiplyPoint (localPosition);
 	}
 
 	public Vector2 positionToCoord(Vector3 position)
 	{
+		Debug.Log ("positionToCoord"+position.x + ":"+position.y);
 		Vector3 localPosition = boxCollider.transform.worldToLocalMatrix.MultiplyPoint (position); 
-//		Debug.Log ("positionToCoord"+localPosition.x + ":"+localPosition.y);
-		Vector2 coord = new Vector2 (Mathf.FloorToInt ((localPosition.x +0.5f) * cols), 
-		                             Mathf.FloorToInt ((localPosition.y +0.6f) * rows));
+		Debug.Log ("positionToCoord"+localPosition.x + ":"+localPosition.y);
+		Vector2 coord = new Vector2 (0, 
+		                             Mathf.FloorToInt ((localPosition.y/3.6f+0.5f) * rows));
 
 		return coord;
 	}
@@ -455,7 +484,7 @@ public class BattleGrid : MonoBehaviour {
 
 		Vector3 worldPosition = new Vector3(gesture.Position.x, gesture.Position.y, transform.position.z);
 		worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
-		Vector2 coord = positionToCoord(worldPosition + new Vector3(0,-0.5f,0f));
+		Vector2 coord = positionToCoord(worldPosition);
 		Vector3 localPosition = coordToPosition(coord);
 
 		if (!unitPrefabs.ContainsKey(tappedButtonCtrl.unitId)) 
@@ -470,6 +499,7 @@ public class BattleGrid : MonoBehaviour {
 		unitToAdd.GetComponent<Unit>().enemy=false;
 		unitToAdd.transform.parent = transform;
 		unitToAdd.transform.position = localPosition;
+		Debug.Log ("on tap: "+(int)coord.x+":"+(int)coord.y);
 		unitToAdd.GetComponent<GridObject>().AssignCoord((int)coord.x,(int)coord.y);
 		objects[0,(int)coord.y].Add (unitToAdd.GetComponent<Unit>());
 		Unit unit = unitToAdd.GetComponent<Unit>();
@@ -479,7 +509,8 @@ public class BattleGrid : MonoBehaviour {
 			unit.attackRange = unit.gameObject.GetComponent<UnitBase>().getRange();
 			unit.cost = (float)tappedButtonCtrl.getCost();
 			heroes.Add(unit);
-			unit.BeginMovement();
+			if(gameStarted)
+				unit.BeginMovement();
 		}
 		
 		AP-=(float)tappedButtonCtrl.getCost();

@@ -22,6 +22,7 @@ public class Tank:UnitBase
 		criticalFactor = 1.5f;
 		coolDown = 3f;
 		coolDownFactor = 0f;
+		movingSpeed = 1f;
 	}
 	public override float getAttackPower(UnitBase targetUnit)
 	{

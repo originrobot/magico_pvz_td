@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Unit : MonoBehaviour
 {
-	protected float speed=1.5f;
+	protected float speed=0f;
 //	public LineRenderer pathLine;
 	private bool isEnemy = true;
 	public bool isLeader = false;
@@ -66,10 +66,10 @@ public class Unit : MonoBehaviour
 	public bool isFrozen = false;
 	private Vector3 initialPosition=Vector3.zero;
 	private float initialHP=0f;
-	private GameObject removeIcon;
 	public float cost;
 	private bool isAttacking = false;
 	private int currentState = 1;
+	private float speedFactor = 0.01f;
 	public bool enemy
 	{
 		get{return isEnemy;}
@@ -113,24 +113,26 @@ public class Unit : MonoBehaviour
 		_spark.GetComponent<Renderer> ().enabled = false;
 		
 		
-		skillOffsets = new Vector3[]{new Vector3(0f,0.5f,0f)};
-		GameObject skill_prefab = (GameObject)Resources.Load(skillPrefabNames[0]);
-		skillOffset = skillOffsets[0];
-		skillObj = GameObject.Instantiate(skill_prefab) as GameObject;
-		skillObj.transform.parent = transform;
-		skillObj.transform.position = transform.position+skillOffset;
-		skillObj.SetActive(false);
-		skillObj.layer = 7;//skills layer
-		skillObj.GetComponent<Renderer> ().sortingLayerName = "skills";
-		availableSkills.Add(skillObj);
+		if(skillPrefabNames.Length>0)
+		{
+			skillOffsets = new Vector3[]{new Vector3(0f,0.5f,0f)};
+			GameObject skill_prefab = (GameObject)Resources.Load(skillPrefabNames[0]);
+			skillOffset = skillOffsets[0];
+			skillObj = GameObject.Instantiate(skill_prefab) as GameObject;
+			skillObj.transform.parent = transform;
+			skillObj.transform.position = transform.position+skillOffset;
+			skillObj.SetActive(false);
+			skillObj.layer = 7;//skills layer
+			skillObj.GetComponent<Renderer> ().sortingLayerName = "skills";
+			availableSkills.Add(skillObj);
+		}
 		animator = this.GetComponent<Animator>();
 		unitVO = GetComponent<UnitBase> ();
 		dualCalculator = DualCalculator.getInstance();
 		HP = transform.FindChild ("HPBar").gameObject;
 		dmg_prefab = (GameObject)Resources.Load ("damagePrefab");
-		removeIcon = transform.FindChild("removeIcon").gameObject;
-		removeIcon.SetActive (false);
 		isTapSelected = false;
+		speed = unitVO.getMovingSpeed() * speedFactor;
 	}
 
 	void Start()
@@ -142,11 +144,13 @@ public class Unit : MonoBehaviour
 	void OnEnable()
 	{
 		BattleGrid.PauseGame += StopMovement;
+		BattleGrid.StartGame += BeginMovement;
 	}
 
 	void OnDisable()
 	{
 		BattleGrid.PauseGame -= StopMovement;
+		BattleGrid.StartGame -= BeginMovement;
 	}
 	void onDeath()
 	{
@@ -191,7 +195,8 @@ public class Unit : MonoBehaviour
 		initialHP = Hp;
 		initialPosition = transform.position;
 		unitVO.setCoolDownFactor (0);
-		if(!isMoving)
+		isLeader = unitVO.unitType != UnitTypes.ARTIFACT && unitVO.unitType != UnitTypes.HERO;
+		if(!isMoving&&unitVO.unitType!=UnitTypes.ARTIFACT)
 			StartCoroutine ("FindTarget");
 	}
 	public void frozeUnit (float duration)
@@ -388,7 +393,8 @@ public class Unit : MonoBehaviour
 	}
 	IEnumerator FindTarget()
 	{
-		List<Unit> enemies = BattleGrid.instance.getUnitByRow(gridObject.row);
+		Debug.Log ("FindTarget.....");
+		List<Unit> enemies = BattleGrid.instance.getUnitByRow(gridObject.row,isEnemy);
 		float cooldown = this.gameObject.GetComponent<UnitBase> ().getCoolDown ();
 		targets = new List<Unit> ();
 		while (true) 
@@ -419,7 +425,7 @@ public class Unit : MonoBehaviour
 	{
 		if(currentState != WALK_STATE)
 			changeAninationState (WALK_STATE);
-		float step = isEnemy ? -1 : 1;
+		float step = isEnemy ? -1*speed : speed;
 		transform.position += new Vector3(step,0f,0f);
 	}
 	private bool isTargetInRange(Unit target)

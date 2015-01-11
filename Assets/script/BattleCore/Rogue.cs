@@ -22,6 +22,7 @@ public class Rogue: UnitBase
 		criticalFactor = 7.5f;
 		coolDown = 2f;
 		coolDownFactor = 0f;
+		movingSpeed = 3f;
 	}
 	public override float getAttackPower(UnitBase targetUnit)
 	{

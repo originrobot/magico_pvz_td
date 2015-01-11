@@ -26,6 +26,7 @@ public class UnitBase:MonoBehaviour
 	protected int criticalRate;
 	protected float criticalFactor;
 	protected const float MIN_COOLDOWN = 0.5f;
+	protected float movingSpeed = 0f;
 	public UnitBase ()
 	{
 	}
@@ -74,6 +75,10 @@ public class UnitBase:MonoBehaviour
 	public void setCoolDownFactor(float factor)
 	{
 		coolDownFactor = factor;
+	}
+	public float getMovingSpeed()
+	{
+		return movingSpeed;
 	}
 }
 
