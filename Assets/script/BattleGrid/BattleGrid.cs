@@ -90,12 +90,12 @@ public class BattleGrid : MonoBehaviour {
 	private GameObject currentSelectedUnit;
 	public float refundFactor = 0.5f;
 	private GameObject manaDropPrefab;
-	private GameObject artifact1;
-	private GameObject artifact2;
-	private GameObject artifact3;
-	private GameObject artifact4;
-	private GameObject artifact5;
-	private GameObject artifact6;
+	private GameObject enemyManaGenArtifact;
+	private GameObject enemyWarlordArtifact;
+	private GameObject enemyCDBoostArtifact;
+	private GameObject manaGenArtifact;
+	private GameObject warlordArtifact;
+	private GameObject CDBoostArtifact;
 	private float spawnSpeed = 15f;
 	void Awake () {
 		Application.targetFrameRate = 30;
@@ -220,24 +220,24 @@ public class BattleGrid : MonoBehaviour {
 //		timerBar.transform.parent.gameObject.SetActive (false);
 		manaBar = GameObject.Find ("ManaBar");
 		restartButton.SetActive(false);
-		artifact1 = GameObject.Find ("artifact1");
-		artifact2 = GameObject.Find ("artifact2");
-		artifact3 = GameObject.Find ("artifact3");
-		artifact4 = GameObject.Find ("artifact4");
-		artifact5 = GameObject.Find ("artifact5");
-		artifact6 = GameObject.Find ("artifact6");
-		artifact1.GetComponent<Unit> ().enemy = true;
-		artifact2.GetComponent<Unit> ().enemy = true;
-		artifact3.GetComponent<Unit> ().enemy = true;
-		artifact4.GetComponent<Unit> ().enemy = false;
-		artifact5.GetComponent<Unit> ().enemy = false;
-		artifact6.GetComponent<Unit> ().enemy = false;
-		objects [0, 2].Add (artifact1.GetComponent<Unit> ());
-		objects [0, 1].Add (artifact2.GetComponent<Unit> ());
-		objects [0, 0].Add (artifact3.GetComponent<Unit> ());
-		objects [0, 2].Add (artifact4.GetComponent<Unit> ());
-		objects [0, 1].Add (artifact5.GetComponent<Unit> ());
-		objects [0, 0].Add (artifact6.GetComponent<Unit> ());
+		enemyManaGenArtifact = GameObject.Find ("enemyManaGenArtifact");
+		enemyWarlordArtifact = GameObject.Find ("enemyWarlordArtifact");
+		enemyCDBoostArtifact = GameObject.Find ("enemyCDBoostArtifact");
+		manaGenArtifact = GameObject.Find ("manaGenArtifact");
+		warlordArtifact = GameObject.Find ("warlordArtifact");
+		CDBoostArtifact = GameObject.Find ("CDBoostArtifact");
+		enemyManaGenArtifact.GetComponent<Unit> ().enemy = true;
+		enemyWarlordArtifact.GetComponent<Unit> ().enemy = true;
+		enemyCDBoostArtifact.GetComponent<Unit> ().enemy = true;
+		manaGenArtifact.GetComponent<Unit> ().enemy = false;
+		warlordArtifact.GetComponent<Unit> ().enemy = false;
+		CDBoostArtifact.GetComponent<Unit> ().enemy = false;
+		objects [0, 2].Add (enemyManaGenArtifact.GetComponent<Unit> ());
+		objects [0, 1].Add (enemyWarlordArtifact.GetComponent<Unit> ());
+		objects [0, 0].Add (enemyCDBoostArtifact.GetComponent<Unit> ());
+		objects [0, 2].Add (manaGenArtifact.GetComponent<Unit> ());
+		objects [0, 1].Add (warlordArtifact.GetComponent<Unit> ());
+		objects [0, 0].Add (CDBoostArtifact.GetComponent<Unit> ());
 //		labelStageWave = GameObject.Find("labelStageWave");
 
 
@@ -337,12 +337,12 @@ public class BattleGrid : MonoBehaviour {
 			manaBar.GetComponent<EnergyBar> ().SetValueMax((int)max_ap);
 			updateManaBar ();
 		}
-		enemies.Add (artifact1.GetComponent<Unit> ());
-		enemies.Add (artifact2.GetComponent<Unit> ());
-		enemies.Add (artifact3.GetComponent<Unit> ());
-		heroes.Add (artifact4.GetComponent<Unit> ());
-		heroes.Add (artifact5.GetComponent<Unit> ());
-		heroes.Add (artifact6.GetComponent<Unit> ());
+		enemies.Add (enemyManaGenArtifact.GetComponent<Unit> ());
+		enemies.Add (enemyWarlordArtifact.GetComponent<Unit> ());
+		enemies.Add (enemyCDBoostArtifact.GetComponent<Unit> ());
+		heroes.Add (manaGenArtifact.GetComponent<Unit> ());
+		heroes.Add (warlordArtifact.GetComponent<Unit> ());
+		heroes.Add (CDBoostArtifact.GetComponent<Unit> ());
 		restartButton.SetActive (false);
 		startButton.SetActive (true);
 
