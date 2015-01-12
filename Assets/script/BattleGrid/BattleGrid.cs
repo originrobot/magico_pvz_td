@@ -24,7 +24,8 @@ public class BattleGrid : MonoBehaviour {
 	public static event BattleGrideDelegate PauseGame;
 	public int cols;
 	public int rows;
-	public float manaRegenSpeed = 1f;
+	public const float defaultManaGenSpeed = 2.5f;
+	public float manaRegenSpeed = defaultManaGenSpeed;
 	public float manaRegenUnit = 0.2f;
 	public bool allowAddUnits=true;
 	public BoxCollider boxCollider;

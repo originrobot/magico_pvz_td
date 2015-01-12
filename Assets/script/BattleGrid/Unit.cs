@@ -70,6 +70,11 @@ public class Unit : MonoBehaviour
 	private bool isAttacking = false;
 	private int currentState = 1;
 	private float speedFactor = 0.01f;
+
+	// for artifact
+	protected int currentLevel = 1;
+	public List<int> levelUpCost;
+
 	public bool enemy
 	{
 		get{return isEnemy;}
