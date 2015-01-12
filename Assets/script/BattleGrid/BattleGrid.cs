@@ -33,6 +33,9 @@ public class BattleGrid : MonoBehaviour {
 	public Material mat; 
 	public Vector2 cellSize { get; private set; }
 
+	public delegate void UpdateManaDelegate(float currentMana);
+	public static event UpdateManaDelegate UpdateMana;
+
 	public List<Unit> heroes = new List<Unit>();
 	public List<Unit> enemies = new List<Unit>();
 //	public PMFSMCommunicator communicator;
@@ -72,8 +75,8 @@ public class BattleGrid : MonoBehaviour {
 //	private GameObject timerBar;
 	private GameObject manaBar;
 //	private GameObject labelStageWave;
-	private float AP;
-	public float max_ap = 100f;
+	private float currentMana;
+	public float maxMana = 100f;
 	public int timerFontSize = 30;
 	public int timerYOffset = 30;
 	public float HPRestorePerWave = 0.3f;
@@ -85,7 +88,6 @@ public class BattleGrid : MonoBehaviour {
 	private int heroCount;
 	private int enemyCount;
 //	private SceneController sceneController;
-	private float storedMana;
 //	private GameObject storedHeroes;
 	public SkillButtonControler tappedButtonCtrl = null;
 //	private List<Vector3> tileScreenPositions = new List<Vector3>();
@@ -139,8 +141,7 @@ public class BattleGrid : MonoBehaviour {
 		}
 		initButtons ();
 		startGame ();
-		AP = max_ap;
-		storedMana = max_ap;
+		currentMana = 0.0f;
 		updateManaBar ();
 //		resolveTileScreenPositions();
 	}
@@ -323,10 +324,10 @@ public class BattleGrid : MonoBehaviour {
 	private void startGame()
 	{
 
-		AP = storedMana;
+		currentMana = 0.0f;
 		if (manaBar != null)
 		{
-			manaBar.GetComponent<EnergyBar> ().SetValueMax((int)max_ap);
+			manaBar.GetComponent<EnergyBar> ().SetValueMax((int)maxMana);
 			updateManaBar ();
 		}
 		enemies.Add (enemyManaGenArtifact.GetComponent<Unit> ());
@@ -426,24 +427,34 @@ public class BattleGrid : MonoBehaviour {
 	{
 		if (manaBar == null) return;
 
-		float relativeMana = AP / max_ap;
+		float relativeMana = currentMana / maxMana;
 		manaBar.GetComponent<EnergyBar>().SetValueF(relativeMana);
+
+		UpdateMana(currentMana);
 	}
-	public int getAP()
+	public int getMana()
 	{
-		return Mathf.FloorToInt(AP);
+		return Mathf.FloorToInt(currentMana);
 	}
-	public void addAP()
+
+	public void updateMana()
 	{
-		AP = Mathf.FloorToInt(AP + manaRegenUnit) > max_ap ? max_ap : AP + manaRegenUnit;
-		updateManaBar ();
+		currentMana = Mathf.FloorToInt(currentMana + manaRegenUnit) > maxMana ? maxMana : currentMana + manaRegenUnit;
+		updateManaBar();
+	}
+
+	public void ModifyMana(float delta)
+	{
+		currentMana += delta;
+		currentMana = Mathf.Clamp(currentMana, 0.0f, maxMana);
+		updateManaBar();
 	}
 
 	IEnumerator generateMana()
 	{
 		while(true)
 		{
-			addAP();
+			updateMana();
 			yield return new WaitForSeconds(manaRegenSpeed);
 		}
 	}
@@ -521,7 +532,7 @@ public class BattleGrid : MonoBehaviour {
 				unit.BeginMovement();
 		}
 		
-		AP-=(float)tappedButtonCtrl.getCost();
+		currentMana-=(float)tappedButtonCtrl.getCost();
 		updateManaBar();
 		unitToAdd = null;
 		

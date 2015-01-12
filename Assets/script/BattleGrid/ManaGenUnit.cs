@@ -14,6 +14,14 @@ public class ManaGenUnit : Unit
 			BattleGrid.instance.manaRegenSpeed = manaGenSpeed[currentLevel-1];
 		}
 	}
+
+	protected override void onLevelChanged()
+	{
+		if (!enemy && manaGenSpeed.Count >= currentLevel) 
+		{
+			BattleGrid.instance.manaRegenSpeed = manaGenSpeed[currentLevel-1];
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () {

@@ -150,12 +150,14 @@ public class Unit : MonoBehaviour
 	{
 		BattleGrid.PauseGame += StopMovement;
 		BattleGrid.StartGame += BeginMovement;
+		BattleGrid.UpdateMana += onUpdateMana;
 	}
 
 	void OnDisable()
 	{
 		BattleGrid.PauseGame -= StopMovement;
 		BattleGrid.StartGame -= BeginMovement;
+		BattleGrid.UpdateMana -= onUpdateMana;
 	}
 	void onDeath()
 	{
@@ -485,6 +487,12 @@ public class Unit : MonoBehaviour
 		isStarted = false;
 		StopCoroutine ("FindTarget");
 	}
+
+	public bool isPlayerArtifact()
+	{
+		return unitVO.unitType == UnitTypes.ARTIFACT && !enemy;
+	}
+
 	public void OnTap(TapGesture gesture)
 	{
 		if (isEnemy && gesture.Selection.Equals (gameObject)) 
@@ -503,7 +511,46 @@ public class Unit : MonoBehaviour
 		{
 			BattleGrid.instance.unitSelected(gameObject);
 		}
+
+		// upgrade artifact
+		if (isPlayerArtifact() && currentLevel <= levelUpCost.Count)
+		{
+			if (BattleGrid.instance.getMana() > levelUpCost[currentLevel-1])
+			{
+				BattleGrid.instance.ModifyMana(-levelUpCost[currentLevel-1]);
+				++currentLevel;
+				onLevelChanged();
+			}
+		}
 	}
 
+	protected virtual void onLevelChanged()
+	{
+	}
+
+	private void onUpdateMana(float currentMana)
+	{
+		if (unitVO.unitType != UnitTypes.ARTIFACT || enemy) return;
+
+		GameObject levelUpSpark = transform.FindChild("spark").gameObject;
+		if (levelUpSpark == null) return;
+
+		if (currentLevel > levelUpCost.Count) 
+		{
+			levelUpSpark.SetActive(false);
+			return;
+		}
+
+		if (currentMana > levelUpCost [currentLevel - 1]) 
+		{
+			levelUpSpark.SetActive(true);
+			levelUpSpark.GetComponent<Renderer>().enabled = true;
+		} 
+		else
+		{
+			levelUpSpark.SetActive(false);
+			levelUpSpark.GetComponent<Renderer>().enabled = false;
+		}
+	}
 }
 
