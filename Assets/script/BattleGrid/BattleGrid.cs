@@ -26,7 +26,8 @@ public class BattleGrid : MonoBehaviour {
 	public int rows;
 	public const float defaultManaGenSpeed = 2.5f;
 	public float manaRegenSpeed = defaultManaGenSpeed;
-	public float manaRegenUnit = 0.2f;
+	public const float defaultManaGenUnit = 1.0f;
+	public float manaRegenUnit = defaultManaGenUnit;
 	public bool allowAddUnits=true;
 	public BoxCollider boxCollider;
 	public Material mat; 
@@ -90,7 +91,6 @@ public class BattleGrid : MonoBehaviour {
 //	private List<Vector3> tileScreenPositions = new List<Vector3>();
 	private GameObject currentSelectedUnit;
 	public float refundFactor = 0.5f;
-	private GameObject manaDropPrefab;
 	private GameObject enemyManaGenArtifact;
 	private GameObject enemyWarlordArtifact;
 	private GameObject enemyCDBoostArtifact;
@@ -239,15 +239,6 @@ public class BattleGrid : MonoBehaviour {
 		objects [0, 2].Add (manaGenArtifact.GetComponent<Unit> ());
 		objects [0, 1].Add (warlordArtifact.GetComponent<Unit> ());
 		objects [0, 0].Add (CDBoostArtifact.GetComponent<Unit> ());
-//		labelStageWave = GameObject.Find("labelStageWave");
-
-
-
-//		GameObject manaDropObject = Resources.Load ("ManaDropPrefab") as GameObject;
-//		manaDropPrefab = GameObject.Instantiate(manaDropObject,manaDropObject.transform.position,manaDropObject.transform.rotation) as GameObject;
-//		manaDropPrefab.transform.parent = gameObject.transform;
-//		manaDropPrefab.transform.position = new Vector3 (0f,2f,25f);
-//		manaDropPrefab.SetActive(false);
 	}
 
 
@@ -488,12 +479,6 @@ public class BattleGrid : MonoBehaviour {
 		}
 	}
 
-
-	public void addManaFromDrop(float addMana)
-	{
-		AP = AP+(float)addMana>max_ap?max_ap:AP+(float)addMana;
-		updateManaBar();
-	}
 	public void OnTap(TapGesture gesture)
 	{
 		if (tappedButtonCtrl == null)
@@ -537,7 +522,7 @@ public class BattleGrid : MonoBehaviour {
 		}
 		
 		AP-=(float)tappedButtonCtrl.getCost();
-		updateManaBar ();
+		updateManaBar();
 		unitToAdd = null;
 		
 		tappedButtonCtrl.startCooldown();
