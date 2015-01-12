@@ -1533,11 +1533,11 @@ Prefab:
     - target: {fileID: 3300000, guid: cd4ebde4a402b461da82108259923066, type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1290627001}
+      objectReference: {fileID: 1261435357}
     - target: {fileID: 6400000, guid: cd4ebde4a402b461da82108259923066, type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1290627001}
+      objectReference: {fileID: 1261435357}
     - target: {fileID: 11400000, guid: cd4ebde4a402b461da82108259923066, type: 2}
       propertyPath: size_x
       value: 1
@@ -1566,7 +1566,8 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11400002, guid: cd4ebde4a402b461da82108259923066, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: cd4ebde4a402b461da82108259923066, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &412319895
@@ -5307,7 +5308,7 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 60dfb8587e656fd4b9360bc598161865, type: 2}
   m_PrefabInternal: {fileID: 1065364905}
---- !u!43 &1290627001
+--- !u!43 &1261435357
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -6133,7 +6134,7 @@ MonoBehaviour:
   attackRange: 0
   skillPrefabNames: []
   skillRotatable: 1
-  isAlive: 0
+  isAlive: 1
   targets: []
   debugTargets: []
   isFrozen: 0

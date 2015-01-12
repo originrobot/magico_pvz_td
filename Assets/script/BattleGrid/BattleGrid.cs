@@ -55,7 +55,6 @@ public class BattleGrid : MonoBehaviour {
 	private List<object> currentWaveHeroData = null;
 	private int currentWaveIdx = -1;
 	private TileMap tileMap;
-	private TileSelection ts;
 	private int displayRange=-1;
 	private GameObject unitToAdd = null;
 //	private GameObject heroesContainer;
@@ -128,7 +127,6 @@ public class BattleGrid : MonoBehaviour {
 	{
 
 		tileMap = GameObject.Find ("TileMap").GetComponent<TileMap>();
-		ts = tileMap.GetComponent<TileSelection> ();
 		foreach (string str in availableUnits) 
 		{
 			GameObject unit_prefab = (GameObject)Resources.Load(str+"Prefab");
@@ -478,7 +476,6 @@ public class BattleGrid : MonoBehaviour {
 	public void unitSelected(GameObject go)
 	{
 		if(!inputEnabled) return;
-		ts.UnSelectUnit ();
 		currentSelectedUnit = null;
 
 		if(go)
@@ -486,7 +483,6 @@ public class BattleGrid : MonoBehaviour {
 			Unit unit = go.GetComponent<Unit>();
 			if(unit.enemy == false)
 			   currentSelectedUnit = go;
-			ts.SelectUnit (go.transform.position, unit.enemy, unit.attackRange);
 		}
 	}
 
@@ -494,11 +490,8 @@ public class BattleGrid : MonoBehaviour {
 	{
 		if (tappedButtonCtrl == null)
 		{
-			ts.UnSelectUnit();
 			return;
 		}
-
-		ts.HideDeployableQuads();
 
 		Vector3 worldPosition = new Vector3(gesture.Position.x, gesture.Position.y, transform.position.z);
 		worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
