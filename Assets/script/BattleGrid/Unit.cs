@@ -150,14 +150,14 @@ public class Unit : MonoBehaviour
 	{
 		BattleGrid.PauseGame += StopMovement;
 		BattleGrid.StartGame += BeginMovement;
-		BattleGrid.UpdateMana += onUpdateMana;
+		BattleGrid.notifyUpdateMana += onUpdateMana;
 	}
 
 	void OnDisable()
 	{
 		BattleGrid.PauseGame -= StopMovement;
 		BattleGrid.StartGame -= BeginMovement;
-		BattleGrid.UpdateMana -= onUpdateMana;
+		BattleGrid.notifyUpdateMana -= onUpdateMana;
 	}
 	void onDeath()
 	{

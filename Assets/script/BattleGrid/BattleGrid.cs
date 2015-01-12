@@ -34,7 +34,7 @@ public class BattleGrid : MonoBehaviour {
 	public Vector2 cellSize { get; private set; }
 
 	public delegate void UpdateManaDelegate(float currentMana);
-	public static event UpdateManaDelegate UpdateMana;
+	public static event UpdateManaDelegate notifyUpdateMana;
 
 	public List<Unit> heroes = new List<Unit>();
 	public List<Unit> enemies = new List<Unit>();
@@ -430,7 +430,7 @@ public class BattleGrid : MonoBehaviour {
 		float relativeMana = currentMana / maxMana;
 		manaBar.GetComponent<EnergyBar>().SetValueF(relativeMana);
 
-		UpdateMana(currentMana);
+		notifyUpdateMana(currentMana);
 	}
 	public int getMana()
 	{
