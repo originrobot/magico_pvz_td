@@ -505,7 +505,7 @@ public class Unit : MonoBehaviour
 
 	public void OnTap(TapGesture gesture)
 	{
-		Debug.Log (gameObject+"Unit is enemy:" +isEnemy );
+//		Debug.Log (gameObject+"Unit is enemy:" +isEnemy );
 //		if (isEnemy && gesture.Selection.Equals (gameObject)) 
 //		{
 //			isTapSelected = !isTapSelected;
@@ -530,6 +530,7 @@ public class Unit : MonoBehaviour
 			{
 				BattleGrid.instance.ModifyMana(-levelUpCost[currentLevel-1]);
 				++currentLevel;
+				Debug.Log("on tap: "+levelUpCost[currentLevel-1]);
 				onLevelChanged();
 			}
 		}
@@ -541,6 +542,7 @@ public class Unit : MonoBehaviour
 
 	protected virtual void onLevelChanged()
 	{
+		_upgradeArrow.GetComponent<Renderer> ().enabled = false;
 	}
 
 	private void onUpdateMana(float currentMana)
