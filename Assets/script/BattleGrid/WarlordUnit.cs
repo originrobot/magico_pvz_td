@@ -12,7 +12,7 @@ public class WarlordUnit : Unit
 	protected override void onDestroyUnit()
 	{
 		if (BattleGrid.instance == null) return;
-
+		gameObject.SetActive (false);
 		BattleGrid.instance.onArtifactDestroyed(GetComponent<GridObject>().row, true, enemy);
 	}
 }

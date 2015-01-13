@@ -34,7 +34,7 @@ public class ManaGenUnit : Unit
 	protected override void onDestroyUnit()
 	{
 		if (BattleGrid.instance == null) return;
-
+		gameObject.SetActive (false);
 		if (!enemy) 
 		{
 			BattleGrid.instance.manaRegenSpeed = BattleGrid.defaultManaGenSpeed;
