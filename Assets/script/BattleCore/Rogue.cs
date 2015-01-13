@@ -47,4 +47,3 @@ public class Rogue: UnitBase
 		return newDefensePower;
 	}
 }
-5
