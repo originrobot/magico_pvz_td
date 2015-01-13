@@ -341,7 +341,16 @@ public class BattleGrid : MonoBehaviour {
 		GameObject go = GameObject.Instantiate(unitPrefabs[prefabName]);
 		go.transform.parent = transform;
 		int attackRange = go.GetComponent<UnitBase>().getRange();
-		int row = Random.Range (0,3);
+		int row = 1;
+		if(CDBoostArtifact.activeSelf&&manaGenArtifact.activeSelf
+		   &&(enemyCDBoostArtifact.activeSelf&&enemyManaGenArtifact.activeSelf))
+			row = Random.Range (0,3);
+		else if(!CDBoostArtifact.activeSelf&&manaGenArtifact.activeSelf
+		        ||(!enemyCDBoostArtifact.activeSelf&&enemyManaGenArtifact.activeSelf))
+			row = Random.Range(1,3);
+		else if(CDBoostArtifact.activeSelf&&!manaGenArtifact.activeSelf
+		        ||(enemyCDBoostArtifact.activeSelf&&!enemyManaGenArtifact.activeSelf))
+			row = Random.Range(0,2);
 		go.GetComponent<GridObject>().AssignCoord(0, row);
 		go.transform.position = coordToPosition (new Vector2(0.4f,row));
 		objects[0,row].Add (go.GetComponent<Unit>());
@@ -391,13 +400,20 @@ public class BattleGrid : MonoBehaviour {
 
 	private void startGame()
 	{
-
+		enemies.Clear ();
+		heroes.Clear ();
 		currentMana = 0.0f;
 		if (manaBar != null)
 		{
 			manaBar.GetComponent<EnergyBar> ().SetValueMax((int)maxMana);
 			updateManaBar ();
 		}
+		enemyManaGenArtifact.SetActive (true);
+		enemyWarlordArtifact.SetActive (true);
+		enemyCDBoostArtifact.SetActive (true);
+		manaGenArtifact.SetActive (true);
+		warlordArtifact.SetActive (true);
+		CDBoostArtifact.SetActive (true);
 		enemies.Add (enemyManaGenArtifact.GetComponent<Unit> ());
 		enemies.Add (enemyWarlordArtifact.GetComponent<Unit> ());
 		enemies.Add (enemyCDBoostArtifact.GetComponent<Unit> ());
@@ -411,12 +427,12 @@ public class BattleGrid : MonoBehaviour {
 	void Update()
 	{
 		if (!gameStarted) return;
-		if (enemies.Count == 0)
+		if (!enemyWarlordArtifact.activeSelf)
 		{
 			gameOver(true);
 			return;
 		}
-		if(heroes.Count == 0)
+		if(!warlordArtifact.activeSelf)
 		{
 			gameOver (false);
 			return;
@@ -569,6 +585,8 @@ public class BattleGrid : MonoBehaviour {
 		worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
 		Vector2 coord = positionToCoord(worldPosition);
 		coord += new Vector2 (-0.4f,0f);
+		if((int)coord.y == 0 && (!CDBoostArtifact.GetComponent<Unit>().isAlive||!enemyCDBoostArtifact.GetComponent<Unit>().isAlive)) return;
+		if((int)coord.y == 2 && (!manaGenArtifact.GetComponent<Unit>().isAlive||!enemyManaGenArtifact.GetComponent<Unit>().isAlive)) return;
 		Vector3 localPosition = coordToPosition(coord);
 
 		if (!unitPrefabs.ContainsKey(tappedButtonCtrl.unitId)) 

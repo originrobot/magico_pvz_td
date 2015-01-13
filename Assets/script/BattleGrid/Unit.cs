@@ -368,13 +368,15 @@ public class Unit : MonoBehaviour
 		if (enemy)
 		{
 			BattleGrid.instance.enemies.Remove (this);
-			Destroy (this.gameObject);
 		}
 		else 
 		{
 			BattleGrid.instance.heroes.Remove (this);
-			this.gameObject.SetActive(false);
 		}
+		if (!isLeader)
+			Destroy (this.gameObject);
+		else
+			gameObject.SetActive (false);
 	}
 
 	void OnAttacking()
@@ -415,7 +417,7 @@ public class Unit : MonoBehaviour
 			targets.Clear();
 			foreach(Unit enemy in enemies)
 			{
-				if(isTargetInRange(enemy))
+				if(enemy && enemy.isAlive&&isTargetInRange(enemy))
 					targets.Add(enemy);
 			}
 
