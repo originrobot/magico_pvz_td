@@ -99,7 +99,18 @@ public class BattleGrid : MonoBehaviour {
 	private GameObject manaGenArtifact;
 	private GameObject warlordArtifact;
 	private GameObject CDBoostArtifact;
-	private float spawnSpeed = 15f;
+	public float secondWaveCheckingPoint = 60;
+	public float thirdWaveCheckingPoint = 120;
+	public List<string> firstWaveUnits;
+	public List<string> secondWaveUnits;
+	public List<string> thirdWaveUnits;
+	public float firstWaveSpwanSpeedMin = 0f;
+	public float firstWaveSpwanSpeedMax = 0f;
+	public float secondWaveSpwanSpeedMin = 0f;
+	public float secondWaveSpwanSpeedMax = 0f;
+	public float thirdWaveSpwanSpeedMin = 0f;
+	public float thirdWaveSpwanSpeedMax = 0f;
+	private float currentTime = 0;
 
 	// public cooldown
 	public const float defaultPublicCDTime = 6.0f;
@@ -281,15 +292,47 @@ public class BattleGrid : MonoBehaviour {
 			++count;
 		}
 	}
+	IEnumerator startTimer()
+	{
+		currentTime = 0f;
+		while(true)
+		{
+			yield return new WaitForSeconds(1f);
+			currentTime += 1f;
+		}
+	}
 	IEnumerator spawnEnemy()
 	{
+		float spawnSpeed = 1000;
+		float spawnSpeedMin = 0;
+		float spawnSpeedMax = 1000;
+		List<string> unitList;
 		while(true)
 		{
 			if(gameStarted)
 			{
-				int r = Random.Range(0,5);
-				spawnEnemyUnit(availableUnits[r]);
+				if(currentTime<secondWaveCheckingPoint)
+				{
+					spawnSpeedMin = firstWaveSpwanSpeedMin;
+					spawnSpeedMax = firstWaveSpwanSpeedMax+1f;
+					unitList = firstWaveUnits;
+				}
+				else if(currentTime>=secondWaveCheckingPoint&&currentTime<thirdWaveCheckingPoint)
+				{
+					spawnSpeedMin = secondWaveSpwanSpeedMin;
+					spawnSpeedMax = secondWaveSpwanSpeedMax+1f;
+					unitList = secondWaveUnits;
+				}
+				else
+				{
+					spawnSpeedMin = thirdWaveSpwanSpeedMin;
+					spawnSpeedMax = thirdWaveSpwanSpeedMax+1f;
+					unitList = thirdWaveUnits;
+				}
+				spawnSpeed = Random.Range(spawnSpeedMin,spawnSpeedMax);
+				int r = Random.Range(0,unitList.Count);
 				yield return new WaitForSeconds(spawnSpeed);
+				spawnEnemyUnit(unitList[r]);
 			}
 			yield return null;
 		}
@@ -387,6 +430,7 @@ public class BattleGrid : MonoBehaviour {
 	{
 		StopCoroutine ("spawnEnemy");
 		StopCoroutine ("generateMana");
+		StopCoroutine ("startTimer");
 		restartButton.SetActive (true);
 	}
 	public List<Unit> getUnitByRow(int row, bool isEnemy)
@@ -438,6 +482,7 @@ public class BattleGrid : MonoBehaviour {
 	public void OnStartButtonClicked()
 	{
 		startButton.SetActive (false);
+		StartCoroutine ("startTimer");
 		StartCoroutine ("spawnEnemy");
 		StartCoroutine ("generateMana");
 		StartGame ();
