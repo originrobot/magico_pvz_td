@@ -30,4 +30,16 @@ public class ManaGenUnit : Unit
 			BattleGrid.instance.manaRegenSpeed = BattleGrid.defaultManaGenSpeed;
 		}
 	}
+
+	protected override void onDestroyUnit()
+	{
+		if (BattleGrid.instance == null) return;
+
+		if (!enemy) 
+		{
+			BattleGrid.instance.manaRegenSpeed = BattleGrid.defaultManaGenSpeed;
+		}
+
+		BattleGrid.instance.onArtifactDestroyed(GetComponent<GridObject>().row);
+	}
 }

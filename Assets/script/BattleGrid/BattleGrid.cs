@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Parse;
@@ -40,6 +40,7 @@ public class BattleGrid : MonoBehaviour {
 	public List<Unit> enemies = new List<Unit>();
 //	public PMFSMCommunicator communicator;
 	public List<Unit>[,] objects;
+	private List<bool> artifactAlives;
 
 	internal int heroTeamFrontLine = 0;
 	internal int enemyTeamFrontLine = 0;
@@ -170,6 +171,12 @@ public class BattleGrid : MonoBehaviour {
 		{
 			objects[0,i] = new List<Unit>();
 		}
+		artifactAlives = new List<bool>();
+		for (int ii = 0; ii < 3; ++ii)
+		{
+			artifactAlives.Add(true);
+		}
+
 		initButtons ();
 		startGame ();
 		currentMana = 0.0f;
@@ -338,6 +345,21 @@ public class BattleGrid : MonoBehaviour {
 	}
 	public void spawnEnemyUnit(string prefabName)
 	{
+		List<int> rows = new List<int>();
+		for (int ii = 0; ii < 3; ++ii)
+		{
+			rows.Add(ii);
+		}
+
+		for (int ii = 0; ii < 3; ++ii) 
+		{
+			if (artifactAlives[ii] == false) rows.Remove(ii);
+		}
+
+		if (rows.Count == 0) return;
+		int idx = Random.Range(0, rows.Count);
+		int row = rows[idx];
+
 		GameObject go = GameObject.Instantiate(unitPrefabs[prefabName]);
 		go.transform.parent = transform;
 		int attackRange = go.GetComponent<UnitBase>().getRange();
@@ -437,8 +459,6 @@ public class BattleGrid : MonoBehaviour {
 			gameOver (false);
 			return;
 		}
-
-
 	}
 
 	private void gameOver(bool winning)
@@ -448,6 +468,7 @@ public class BattleGrid : MonoBehaviour {
 		StopCoroutine ("startTimer");
 		restartButton.SetActive (true);
 	}
+
 	public List<Unit> getUnitByRow(int row, bool isEnemy)
 	{
 //		Debug.Log ("getUnitByRow-- row" + row+",isEnemy="+isEnemy);
@@ -574,6 +595,53 @@ public class BattleGrid : MonoBehaviour {
 		}
 	}
 
+	public void onArtifactDestroyed(int row, bool warlord = false, bool enemy = false)
+	{
+		if (row >= artifactAlives.Count) return;
+		artifactAlives [row] = false;
+
+		// kill all unit in the row
+		foreach(Unit u in objects[0, row])
+		{
+
+			UnitBase unitV0 = u.GetComponent<UnitBase>();
+			unitV0.setHP(0);
+		}
+
+		objects[0, row].Clear();
+
+		// warlord destroyed
+		if (warlord == true) 
+		{
+			for (int ii = 0; ii < 3; ++ii)
+			{
+				foreach(Unit u in objects[0, ii])
+				{
+					UnitBase unitV0 = u.GetComponent<UnitBase>();
+					unitV0.setHP(0);
+				}
+
+				objects[0, ii].Clear();
+			}
+
+			StartCoroutine(coWarlordDead(enemy));
+		}
+	}
+
+	private IEnumerator coWarlordDead(bool enemy)
+	{
+		int count = 0;
+		while (count < 2) 
+		{
+			yield return null;
+			++count;
+		}
+		
+		bool win = false;
+		if (enemy) win = true;
+		gameOver(win);
+	}
+
 	public void OnTap(TapGesture gesture)
 	{
 		if (tappedButtonCtrl == null)
@@ -585,8 +653,9 @@ public class BattleGrid : MonoBehaviour {
 		worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
 		Vector2 coord = positionToCoord(worldPosition);
 		coord += new Vector2 (-0.4f,0f);
-		if((int)coord.y == 0 && (!CDBoostArtifact.GetComponent<Unit>().isAlive||!enemyCDBoostArtifact.GetComponent<Unit>().isAlive)) return;
-		if((int)coord.y == 2 && (!manaGenArtifact.GetComponent<Unit>().isAlive||!enemyManaGenArtifact.GetComponent<Unit>().isAlive)) return;
+
+		if (artifactAlives[(int)coord.y] == false) return;
+
 		Vector3 localPosition = coordToPosition(coord);
 
 		if (!unitPrefabs.ContainsKey(tappedButtonCtrl.unitId)) 

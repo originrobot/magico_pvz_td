@@ -365,6 +365,7 @@ public class Unit : MonoBehaviour
 	void DestoryUnit()
 	{
 		if (BattleGrid.instance == null) return;
+
 		if (enemy)
 		{
 			BattleGrid.instance.enemies.Remove (this);
@@ -373,10 +374,12 @@ public class Unit : MonoBehaviour
 		{
 			BattleGrid.instance.heroes.Remove (this);
 		}
-		if (!isLeader)
-			Destroy (this.gameObject);
-		else
-			gameObject.SetActive (false);
+
+		onDestroyUnit();
+	}
+
+	protected virtual void onDestroyUnit()
+	{
 	}
 
 	void OnAttacking()

@@ -8,4 +8,11 @@ public class WarlordUnit : Unit
 	void Start () {
 	
 	}
+	
+	protected override void onDestroyUnit()
+	{
+		if (BattleGrid.instance == null) return;
+
+		BattleGrid.instance.onArtifactDestroyed(GetComponent<GridObject>().row, true, enemy);
+	}
 }

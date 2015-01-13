@@ -30,4 +30,16 @@ public class CDBoostUnit : Unit
 			BattleGrid.instance.publicCDTime = BattleGrid.defaultPublicCDTime;
 		}
 	}
+
+	protected override void onDestroyUnit()
+	{
+		if (BattleGrid.instance == null) return;
+		
+		if (!enemy) 
+		{
+			BattleGrid.instance.publicCDTime = BattleGrid.defaultPublicCDTime;
+		}
+		
+		BattleGrid.instance.onArtifactDestroyed(GetComponent<GridObject>().row);
+	}
 }
