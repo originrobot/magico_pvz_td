@@ -380,6 +380,7 @@ public class Unit : MonoBehaviour
 
 	protected virtual void onDestroyUnit()
 	{
+		Destroy (gameObject);
 	}
 
 	void OnAttacking()
