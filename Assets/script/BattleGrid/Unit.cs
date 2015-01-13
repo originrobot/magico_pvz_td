@@ -118,7 +118,7 @@ public class Unit : MonoBehaviour
 		_spark.GetComponent<Renderer> ().enabled = false;
 		
 		
-		if(skillPrefabNames.Length>0)
+		if(skillPrefabNames!=null&&skillPrefabNames.Length>0)
 		{
 			skillOffsets = new Vector3[]{new Vector3(0f,0.5f,0f)};
 			GameObject skill_prefab = (GameObject)Resources.Load(skillPrefabNames[0]);
@@ -208,7 +208,7 @@ public class Unit : MonoBehaviour
 		initialHP = Hp;
 		initialPosition = transform.position;
 		unitVO.setCoolDownFactor (0);
-		isLeader = unitVO.unitType != UnitTypes.ARTIFACT && unitVO.unitType != UnitTypes.HERO;
+		isLeader = unitVO.unitType == UnitTypes.ARTIFACT || unitVO.unitType == UnitTypes.WARLOARD;
 		if(!isMoving&&unitVO.unitType!=UnitTypes.ARTIFACT)
 			StartCoroutine ("FindTarget");
 	}
@@ -500,18 +500,18 @@ public class Unit : MonoBehaviour
 	public void OnTap(TapGesture gesture)
 	{
 		Debug.Log (gameObject+"Unit is enemy:" +isEnemy );
-		if (isEnemy && gesture.Selection.Equals (gameObject)) 
-		{
-			isTapSelected = !isTapSelected;
-			BattleGrid.instance.toggleEnemySelection(this);
-		}
-
-		if (BattleGrid.instance.tappedButtonCtrl)
-		{
-			BattleGrid.instance.OnTap (gesture);
-			BattleGrid.instance.unitSelected(null);
-			return;
-		}
+//		if (isEnemy && gesture.Selection.Equals (gameObject)) 
+//		{
+//			isTapSelected = !isTapSelected;
+//			BattleGrid.instance.toggleEnemySelection(this);
+//		}
+//
+//		if (BattleGrid.instance.tappedButtonCtrl)
+//		{
+//			BattleGrid.instance.OnTap (gesture);
+//			BattleGrid.instance.unitSelected(null);
+//			return;
+//		}
 		if(gesture.Selection.Equals(gameObject))
 		{
 			BattleGrid.instance.unitSelected(gameObject);

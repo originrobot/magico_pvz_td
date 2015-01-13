@@ -14,7 +14,6 @@ GameObject:
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400006}
-  - 114: {fileID: 11400004}
   m_Layer: 0
   m_Name: artifactPrefab
   m_TagString: Untagged
@@ -308,34 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57478ed8691184f8aaa3a0bc7aefe3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11400004
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f174083a00044588b3bd60772fbbbd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isLeader: 0
-  character_id: 
-  isStarted: 0
-  attackRange: 0
-  skillPrefabNames: []
-  skillRotatable: 1
-  isAlive: 1
-  targets: []
-  debugTargets: []
-  isFrozen: 0
-  cost: 0
-  levelUpCost: 050000000a00000014000000
-  manaGenSpeed:
-  - 2
-  - 1.5
-  - 1
-  - .5
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1

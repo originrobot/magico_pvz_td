@@ -129,7 +129,6 @@ public class BattleGrid : MonoBehaviour {
 	}
 
 	void Awake () {
-		Application.targetFrameRate = 30;
 		gameObject.tag = "BattleGrid";
 		Init ();
 	}
@@ -141,12 +140,17 @@ public class BattleGrid : MonoBehaviour {
 
 	public void Init()
 	{		 
-		heroes.Clear ();
 
 		cellSize = new Vector2 (boxCollider.transform.localScale.x * boxCollider.size.x / cols, 
 		                        boxCollider.transform.localScale.y * boxCollider.size.y / rows);
 
 		mat.mainTextureScale = new Vector2 (cols, rows);
+		enemyManaGenArtifact = GameObject.Find ("enemyManaGenArtifact");
+		enemyWarlordArtifact = GameObject.Find ("enemyWarlordArtifact");
+		enemyCDBoostArtifact = GameObject.Find ("enemyCDBoostArtifact");
+		manaGenArtifact = GameObject.Find ("manaGenArtifact");
+		warlordArtifact = GameObject.Find ("warlordArtifact");
+		CDBoostArtifact = GameObject.Find ("CDBoostArtifact");
 
 //		GameObject btnDropdown = GameObject.Find("btnDropdown");
 //		dropdownList = btnDropdown.transform.FindChild("dropdownList").gameObject;
@@ -259,12 +263,7 @@ public class BattleGrid : MonoBehaviour {
 //		timerBar.transform.parent.gameObject.SetActive (false);
 		manaBar = GameObject.Find ("ManaBar");
 		restartButton.SetActive(false);
-		enemyManaGenArtifact = GameObject.Find ("enemyManaGenArtifact");
-		enemyWarlordArtifact = GameObject.Find ("enemyWarlordArtifact");
-		enemyCDBoostArtifact = GameObject.Find ("enemyCDBoostArtifact");
-		manaGenArtifact = GameObject.Find ("manaGenArtifact");
-		warlordArtifact = GameObject.Find ("warlordArtifact");
-		CDBoostArtifact = GameObject.Find ("CDBoostArtifact");
+
 		enemyManaGenArtifact.GetComponent<Unit> ().enemy = true;
 		enemyWarlordArtifact.GetComponent<Unit> ().enemy = true;
 		enemyCDBoostArtifact.GetComponent<Unit> ().enemy = true;

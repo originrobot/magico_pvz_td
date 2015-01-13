@@ -8,20 +8,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-
-public class UnitTypes
+public class Warlord:UnitBase
 {
-	public const int TANK = 1;
-	public const int ROGUE = 2;
-	public const int MAGE = 3;
-	public const int ARCHER = 4;
-	public const int SHAMAN = 5;
-	public const int ARTIFACT = 6;
-	public const int WARLOARD = 7;
-	public const int WATERELEMENT = 1;
-	public const int FIREELEMENT = 2;
-	public const int WOODELEMENT = 3;
-	public UnitTypes ()
+	public Warlord ()
 	{
+		unitType = UnitTypes.WARLOARD;
+		this.attackPower = 100;
+		this.defensePower = 50;
+		this.range = 0;
+		this.maxHP = 2500;
+		this.HP = maxHP;
+		criticalRate = 0;
+		criticalFactor = 1f;
+		coolDown =0f;
+		coolDownFactor = 0f;
 	}
 }
