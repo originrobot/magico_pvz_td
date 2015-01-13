@@ -13,10 +13,10 @@ public class Tank:UnitBase
 	public Tank ()
 	{
 		unitType = UnitTypes.TANK;
-		this.attackPower = 80;
+		this.attackPower = 90;
 		this.defensePower = 60;
 		this.range = 1;
-		this.maxHP = 1600;
+		this.maxHP = 1500;
 		this.HP = maxHP;
 		criticalRate = 45;
 		criticalFactor = 1.5f;

@@ -13,16 +13,16 @@ public class Archer:UnitBase
 	public Archer ()
 	{
 		unitType = UnitTypes.ARCHER;
-		this.attackPower = 80;
-		this.defensePower = 45;
+		this.attackPower = 100;
+		this.defensePower = 30;
 		this.range = 4;
-		this.maxHP = 700;
+		this.maxHP = 900;
 		this.HP = maxHP;
 		criticalRate = 10;
 		criticalFactor = 1.5f;
 		coolDown = 1.5f;
 		coolDownFactor = 0f;
-		movingSpeed = 3f;
+		movingSpeed = 2f;
 	}
 	public override float getAttackPower(UnitBase targetUnit)
 	{

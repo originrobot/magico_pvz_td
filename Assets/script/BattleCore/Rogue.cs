@@ -14,15 +14,15 @@ public class Rogue: UnitBase
 	{
 		unitType = UnitTypes.ROGUE;
 		this.attackPower = 200;
-		this.defensePower = 40;
+		this.defensePower = 45;
 		this.range = 2;
-		this.maxHP = 1000;
+		this.maxHP = 1200;
 		this.HP = maxHP;
 		criticalRate = 10;
 		criticalFactor = 7.5f;
 		coolDown = 2f;
 		coolDownFactor = 0f;
-		movingSpeed = 3f;
+		movingSpeed = 2.5f;
 	}
 	public override float getAttackPower(UnitBase targetUnit)
 	{
@@ -47,4 +47,4 @@ public class Rogue: UnitBase
 		return newDefensePower;
 	}
 }
-
+5

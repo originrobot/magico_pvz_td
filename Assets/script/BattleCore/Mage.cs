@@ -13,8 +13,8 @@ public class Mage: UnitBase
 	public Mage ()
 	{
 		unitType = UnitTypes.MAGE;
-		this.attackPower = 130;
-		this.defensePower = 25;
+		this.attackPower = 90;
+		this.defensePower = 15;
 		this.range = 3;
 		this.maxHP = 500;
 		this.HP = maxHP;
@@ -22,7 +22,7 @@ public class Mage: UnitBase
 		criticalFactor = 5.5f;
 		coolDown = 2.5f;
 		coolDownFactor = 0f;
-		movingSpeed = 2f;
+		movingSpeed = 1.5f;
 	}
 	public override float getAttackPower(UnitBase targetUnit)
 	{
