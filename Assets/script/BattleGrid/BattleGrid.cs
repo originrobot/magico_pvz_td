@@ -363,16 +363,6 @@ public class BattleGrid : MonoBehaviour {
 		GameObject go = GameObject.Instantiate(unitPrefabs[prefabName]);
 		go.transform.parent = transform;
 		int attackRange = go.GetComponent<UnitBase>().getRange();
-		int row = 1;
-		if(CDBoostArtifact.activeSelf&&manaGenArtifact.activeSelf
-		   &&(enemyCDBoostArtifact.activeSelf&&enemyManaGenArtifact.activeSelf))
-			row = Random.Range (0,3);
-		else if(!CDBoostArtifact.activeSelf&&manaGenArtifact.activeSelf
-		        ||(!enemyCDBoostArtifact.activeSelf&&enemyManaGenArtifact.activeSelf))
-			row = Random.Range(1,3);
-		else if(CDBoostArtifact.activeSelf&&!manaGenArtifact.activeSelf
-		        ||(enemyCDBoostArtifact.activeSelf&&!enemyManaGenArtifact.activeSelf))
-			row = Random.Range(0,2);
 		go.GetComponent<GridObject>().AssignCoord(0, row);
 		go.transform.position = coordToPosition (new Vector2(0.4f,row));
 		objects[0,row].Add (go.GetComponent<Unit>());
