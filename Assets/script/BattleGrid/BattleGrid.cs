@@ -67,6 +67,7 @@ public class BattleGrid : MonoBehaviour {
 	private Dictionary<string,GameObject> unitPrefabs = new Dictionary<string,GameObject >();
 
 	//Skill Buttons -- quick hack, should be moving to other scripts
+	private int skillButtonCount = 4;
 	private List<GameObject> skillButtons = new List<GameObject>();
 	private GameObject startButton;
 //	private GameObject dropdownList;
@@ -99,6 +100,23 @@ public class BattleGrid : MonoBehaviour {
 	private GameObject warlordArtifact;
 	private GameObject CDBoostArtifact;
 	private float spawnSpeed = 15f;
+
+	// public cooldown
+	public const float defaultPublicCDTime = 6.0f;
+	private float _publicCDTime = defaultPublicCDTime;
+	public float publicCDTime
+	{
+		get { return _publicCDTime; }
+		set { _publicCDTime = value; }
+	}
+
+	private float publicCDStartTime;
+	private bool _publicCoolingdown = false;
+	public bool publicCoolingdown
+	{
+		get { return _publicCoolingdown; }
+	}
+
 	void Awake () {
 		Application.targetFrameRate = 30;
 		gameObject.tag = "BattleGrid";
@@ -141,17 +159,27 @@ public class BattleGrid : MonoBehaviour {
 		startGame ();
 		currentMana = 0.0f;
 		updateManaBar ();
-//		resolveTileScreenPositions();
+
+		// start public CD coroutine
+		publicCDStartTime = Time.realtimeSinceStartup - publicCDTime - 1.0f;
+		StartCoroutine(coPublicCD());
 	}
 
-//	private void resolveTileScreenPositions()
-//	{
-//		for (int ii = 0; ii < tileMap.TileCenters.Count; ++ii) 
-//		{
-//			Vector3 screenPos = Camera.main.WorldToScreenPoint(tileMap.TileCenters[ii]);
-//			tileScreenPositions.Add(screenPos);
-//		}
-//	}
+	private IEnumerator coPublicCD()
+	{
+		while (true)
+		{
+			if (Time.realtimeSinceStartup - publicCDStartTime > publicCDTime)
+			{
+				_publicCoolingdown = false;
+			}
+			else
+			{
+				_publicCoolingdown = true;
+			}
+			yield return null;
+		}
+	}
 
 	private void initWaves()
 	{
@@ -163,7 +191,7 @@ public class BattleGrid : MonoBehaviour {
 	{
 		List<object> teamDetails = new List<object>();
 
-		for (int ii = 0; ii < 6; ++ii) 
+		for (int ii = 0; ii < skillButtonCount; ++ii) 
 		{
 			Dictionary<string,object> skillDict = new Dictionary<string,object>();
 			skillDict["id"] = skillButtons[ii].name;
@@ -179,7 +207,7 @@ public class BattleGrid : MonoBehaviour {
 	public void applyTeamDetail(object teamDetail)
 	{
 		List<object> teamDetails = teamDetail as List<object>;
-		for (int ii = 0; ii < 6; ++ii) 
+		for (int ii = 0; ii < skillButtonCount; ++ii) 
 		{
 			Dictionary<string,object> skillDict = teamDetails[ii] as Dictionary<string,object>;
 			Sprite unitSprite = Resources.Load<Sprite>("Buttons/" + skillDict["uniticon"].ToString());
@@ -206,7 +234,7 @@ public class BattleGrid : MonoBehaviour {
 
 	private void initButtons()
 	{
-		for (int ii = 1; ii <= 6; ++ii) 
+		for (int ii = 1; ii <= skillButtonCount; ++ii) 
 		{
 			GameObject skillButton = GameObject.Find("SkillButton" + ii.ToString());
 			UIEventListener.Get(skillButton).onClick += onSkillButtonClick;
@@ -528,6 +556,9 @@ public class BattleGrid : MonoBehaviour {
 		currentMana-=(float)tappedButtonCtrl.getCost();
 		updateManaBar();
 		unitToAdd = null;
+
+		// start public CD after deploying hero units
+		publicCDStartTime = Time.realtimeSinceStartup;
 		
 		tappedButtonCtrl.startCooldown();
 		tappedButtonCtrl = null;

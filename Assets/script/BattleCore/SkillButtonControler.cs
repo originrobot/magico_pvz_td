@@ -110,7 +110,7 @@ public class SkillButtonControler : MonoBehaviour
 	void Update()
 	{
 		if(currentState == COOLDOWNSTATE || currentState == DISABLEDSTATE||currentState==SELECTEDSTATE) return;
-		if (BattleGrid.instance.getMana () >= APCost && bindByBoss == false)
+		if (BattleGrid.instance.getMana () >= APCost && bindByBoss == false && !BattleGrid.instance.publicCoolingdown)
 			setState (READYSTATE);
 		else
 			setState (NOTREADYSTATE);
