@@ -518,10 +518,10 @@ public class Unit : MonoBehaviour
 //			BattleGrid.instance.unitSelected(null);
 //			return;
 //		}
-		if(gesture.Selection.Equals(gameObject))
-		{
-			BattleGrid.instance.unitSelected(gameObject);
-		}
+//		if(gesture.Selection.Equals(gameObject))
+//		{
+//			BattleGrid.instance.unitSelected(gameObject);
+//		}
 
 		// upgrade artifact
 		if (isPlayerArtifact() && currentLevel <= levelUpCost.Count)
@@ -532,6 +532,10 @@ public class Unit : MonoBehaviour
 				++currentLevel;
 				onLevelChanged();
 			}
+		}
+		else
+		{
+			BattleGrid.instance.OnTap(gesture);
 		}
 	}
 

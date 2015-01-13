@@ -16,7 +16,7 @@ public class Artifact:UnitBase
 		this.attackPower = 0;
 		this.defensePower = 100;
 		this.range = 0;
-		this.maxHP = 2000;
+		this.maxHP = 200;
 		this.HP = maxHP;
 		criticalRate = 0;
 		criticalFactor = 1f;
