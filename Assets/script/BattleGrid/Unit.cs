@@ -165,8 +165,9 @@ public class Unit : MonoBehaviour
 		isAlive = false;
 		isStarted = false;
 		BattleGrid.instance.removeUnit (gridObject.row,this);
-		changeAninationState (DIE_STATE);
+		changeAninationState(DIE_STATE);
 	}
+
 	void StopMovement()
 	{
 		isStarted = false;
@@ -463,13 +464,11 @@ public class Unit : MonoBehaviour
 		if(target && target.isAlive && isAlive&&!isFrozen)
 		{
 			UnitBase targetVO = target.GetComponent<UnitBase>();
-//			Debug.Log ("doDamage unit:"+this+","+unitVO.unitType+" did " + damage + " to unit: " + target+","+targetVO.unitType);
 			float newHP = targetVO.getHP () - currentDMG;
 			newHP = newHP<0?0:newHP;
 			targetVO.setHP(newHP);
 			target.OnHit(currentDMG,isTriggeringCritical);
 		}
-
 	}
 		
 

@@ -22,11 +22,6 @@ public class ManaGenUnit : Unit
 			BattleGrid.instance.manaRegenSpeed = manaGenSpeed[currentLevel-1];
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	void OnDestroy()
 	{
