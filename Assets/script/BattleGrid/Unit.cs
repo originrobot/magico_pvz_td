@@ -20,6 +20,7 @@ public class Unit : MonoBehaviour
 	private Transform hitpoints;
 
 	private GameObject _spark;
+	private GameObject _upgradeArrow;
 	private bool _displaySpark = false;
 	private int _sparkTimer = 0;
 	private const int TIMERLIMIT = 10;
@@ -105,7 +106,6 @@ public class Unit : MonoBehaviour
 		isTriggeringCritical=false;
 		isStarted = false;
 		_displaySpark = false;
-		_spark.GetComponent<Renderer> ().enabled = false;
 		if (initialHP != 0f)
 			gameObject.GetComponent<UnitBase> ().setHP (initialHP);
 		if(initialPosition!=Vector3.zero)
@@ -133,6 +133,11 @@ public class Unit : MonoBehaviour
 		}
 		animator = this.GetComponent<Animator>();
 		unitVO = GetComponent<UnitBase> ();
+		if(unitVO.unitType==UnitTypes.ARTIFACT)
+		{
+			_upgradeArrow = transform.FindChild ("upgrade").gameObject;
+			_upgradeArrow.GetComponent<Renderer> ().enabled = false;
+		}
 		dualCalculator = DualCalculator.getInstance();
 		HP = transform.FindChild ("HPBar").gameObject;
 		dmg_prefab = (GameObject)Resources.Load ("damagePrefab");
@@ -240,8 +245,8 @@ public class Unit : MonoBehaviour
 		GameObject damageObj = Instantiate (dmg_prefab);
 		damageObj.transform.parent = transform;
 		damageObj.transform.position = transform.position + new Vector3 (-0.2f,2f,0);
-		this._displaySpark = true;
-		this._sparkTimer = 0;
+//		this._displaySpark = true;
+//		this._sparkTimer = 0;
 		damageObj.GetComponent<DamagePopup>().displayType = DamagePopup.HEAL;
 		damageObj.GetComponent<DamagePopup>().Value = Mathf.FloorToInt(heal);	
 	}
@@ -494,6 +499,7 @@ public class Unit : MonoBehaviour
 
 	public void OnTap(TapGesture gesture)
 	{
+		Debug.Log (gameObject+"Unit is enemy:" +isEnemy );
 		if (isEnemy && gesture.Selection.Equals (gameObject)) 
 		{
 			isTapSelected = !isTapSelected;
@@ -531,24 +537,23 @@ public class Unit : MonoBehaviour
 	{
 		if (unitVO.unitType != UnitTypes.ARTIFACT || enemy) return;
 
-		GameObject levelUpSpark = transform.FindChild("spark").gameObject;
-		if (levelUpSpark == null) return;
+		if (_upgradeArrow == null) return;
 
 		if (currentLevel > levelUpCost.Count) 
 		{
-			levelUpSpark.SetActive(false);
+			_upgradeArrow.SetActive(false);
 			return;
 		}
 
 		if (currentMana > levelUpCost [currentLevel - 1]) 
 		{
-			levelUpSpark.SetActive(true);
-			levelUpSpark.GetComponent<Renderer>().enabled = true;
+			_upgradeArrow.SetActive(true);
+			_upgradeArrow.GetComponent<Renderer>().enabled = true;
 		} 
 		else
 		{
-			levelUpSpark.SetActive(false);
-			levelUpSpark.GetComponent<Renderer>().enabled = false;
+			_upgradeArrow.SetActive(false);
+			_upgradeArrow.GetComponent<Renderer>().enabled = false;
 		}
 	}
 }
