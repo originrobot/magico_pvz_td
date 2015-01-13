@@ -26,7 +26,6 @@ public class TargetComparer:IComparer <Unit>
 		if(x.isLeader) xPosition = 1000;
 		if(y.isLeader) yPosition = 1000;
 		result = Mathf.FloorToInt (xPosition - yPosition);
-		if (isEnemy) result *= -1;
 		if (result == 0) result = Mathf.FloorToInt (x.Hp-y.Hp);
 		return result;
 	}

@@ -479,7 +479,9 @@ public class BattleGrid : MonoBehaviour {
 
 	public Vector3 coordToPosition(Vector2 coord)
 	{
-		Vector3 localPosition = new Vector3(coord.x, coord.y/rows-0.5f, 0f);
+		float yOffsets = -0.45f;
+		yOffsets += Random.Range (-0.05f,0.05f);
+		Vector3 localPosition = new Vector3(coord.x, coord.y/rows+yOffsets, 0f);
 		return boxCollider.transform.localToWorldMatrix.MultiplyPoint (localPosition);
 	}
 
