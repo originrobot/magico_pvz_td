@@ -345,10 +345,24 @@ public class BattleGrid : MonoBehaviour {
 	}
 	public void spawnEnemyUnit(string prefabName)
 	{
+		List<int> rows = new List<int>();
+		for (int ii = 0; ii < 3; ++ii)
+		{
+			rows.Add(ii);
+		}
+
+		for (int ii = 0; ii < 3; ++ii) 
+		{
+			if (artifactAlives[ii] == false) rows.Remove(ii);
+		}
+
+		if (rows.Count == 0) return;
+		int idx = Random.Range(0, rows.Count);
+		int row = rows[idx];
+
 		GameObject go = GameObject.Instantiate(unitPrefabs[prefabName]);
 		go.transform.parent = transform;
 		int attackRange = go.GetComponent<UnitBase>().getRange();
-		int row = Random.Range (0,3);
 		go.GetComponent<GridObject>().AssignCoord(0, row);
 		go.transform.position = coordToPosition (new Vector2(0.4f,row));
 		objects[0,row].Add (go.GetComponent<Unit>());
@@ -572,6 +586,7 @@ public class BattleGrid : MonoBehaviour {
 		// kill all unit in the row
 		foreach(Unit u in objects[0, row])
 		{
+
 			UnitBase unitV0 = u.GetComponent<UnitBase>();
 			unitV0.setHP(0);
 		}

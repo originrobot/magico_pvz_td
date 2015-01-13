@@ -422,7 +422,7 @@ public class Unit : MonoBehaviour
 			targets.Clear();
 			foreach(Unit enemy in enemies)
 			{
-				if(isTargetInRange(enemy))
+				if(enemy && isTargetInRange(enemy))
 					targets.Add(enemy);
 			}
 
