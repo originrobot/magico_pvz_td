@@ -13,7 +13,7 @@ public class Archer:UnitBase
 	public Archer ()
 	{
 		unitType = UnitTypes.ARCHER;
-		this.attackPower = 100;
+		this.attackPower = 70;
 		this.defensePower = 30;
 		this.range = 4;
 		this.maxHP = 900;

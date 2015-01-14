@@ -116,6 +116,19 @@ public class BattleGrid : MonoBehaviour {
 	// public cooldown
 	public const float defaultPublicCDTime = 6.0f;
 	private float _publicCDTime = defaultPublicCDTime;
+	public bool hardMode = false;
+	public float rightXAnchor16x9 = 8.2f;
+	public float leftXAnchor16x9 = -7.6f;
+	public float rightXAnchor4x3 = 6.1f;
+	public float leftXAnchor4x3 = -5.6f;
+	private float leftXAnchor = 0f;
+	private float rightXAnchor = 0f;
+	public float unitSpawnLeftAnchor16x9 = -0.38f;
+	public float unitSpawnRightAnchor16x9 = 0.38f;
+	public float unitSpawnLeftAnchor4x3 = -0.28f;
+	public float unitSpawnRightAnchor4x3 = 0.28f;
+	private float unitSpawnLeftAnchor = 0f;
+	private float unitSpawnRightAnchor = 0f;
 	public float publicCDTime
 	{
 		get { return _publicCDTime; }
@@ -185,6 +198,7 @@ public class BattleGrid : MonoBehaviour {
 		// start public CD coroutine
 		publicCDStartTime = Time.realtimeSinceStartup - publicCDTime - 1.0f;
 		StartCoroutine(coPublicCD());
+//		Debug.Log ("Screen aspect ratio is: " + Camera.main.aspect);
 	}
 
 	private IEnumerator coPublicCD()
@@ -284,6 +298,29 @@ public class BattleGrid : MonoBehaviour {
 		manaGenArtifact.GetComponent<GridObject> ().AssignCoord (0, 2);
 		warlordArtifact.GetComponent<GridObject> ().AssignCoord (0, 1);
 		CDBoostArtifact.GetComponent<GridObject> ().AssignCoord (0, 0);
+
+		if(Mathf.FloorToInt(Camera.main.aspect*10) == Mathf.FloorToInt(16*10/9))
+		{
+			rightXAnchor = rightXAnchor16x9;
+			leftXAnchor = leftXAnchor16x9;
+			unitSpawnLeftAnchor = unitSpawnLeftAnchor16x9;
+			unitSpawnRightAnchor = unitSpawnRightAnchor16x9;
+
+		}
+		else
+		{
+			rightXAnchor = rightXAnchor4x3;
+			leftXAnchor=leftXAnchor4x3;
+			unitSpawnLeftAnchor = unitSpawnLeftAnchor4x3;
+			unitSpawnRightAnchor = unitSpawnRightAnchor4x3;
+		}
+
+		enemyManaGenArtifact.transform.position+=new Vector3(rightXAnchor,0,0);
+		enemyWarlordArtifact.transform.position+=new Vector3(rightXAnchor,0,0);
+		enemyCDBoostArtifact.transform.position+=new Vector3(rightXAnchor,0,0);
+		manaGenArtifact.transform.position+=new Vector3(leftXAnchor,0,0);
+		warlordArtifact.transform.position+=new Vector3(leftXAnchor,0,0);
+		CDBoostArtifact.transform.position+=new Vector3(leftXAnchor,0,0);
 	}
 
 
@@ -365,7 +402,7 @@ public class BattleGrid : MonoBehaviour {
 		go.transform.parent = transform;
 		int attackRange = go.GetComponent<UnitBase>().getRange();
 		go.GetComponent<GridObject>().AssignCoord(0, row);
-		go.transform.position = coordToPosition (new Vector2(0.4f,row));
+		go.transform.position = coordToPosition (new Vector2(unitSpawnRightAnchor,row));
 		objects[0,row].Add (go.GetComponent<Unit>());
 		Unit unit = go.GetComponent<Unit>();
 		if(unit != null)
@@ -612,9 +649,14 @@ public class BattleGrid : MonoBehaviour {
 		// kill all unit in the row
 		foreach(Unit u in objects[0, row])
 		{
-
 			UnitBase unitV0 = u.GetComponent<UnitBase>();
-			unitV0.setHP(0);
+			if(hardMode)
+				unitV0.setHP(0);
+			else
+			{
+				if(u.enemy==enemy)
+					unitV0.setHP(0);
+			}
 		}
 
 		objects[0, row].Clear();
@@ -661,7 +703,7 @@ public class BattleGrid : MonoBehaviour {
 		Vector3 worldPosition = new Vector3(gesture.Position.x, gesture.Position.y, transform.position.z);
 		worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
 		Vector2 coord = positionToCoord(worldPosition);
-		coord += new Vector2 (-0.4f,0f);
+		coord += new Vector2 (unitSpawnLeftAnchor,0f);
 
 		if (artifactAlives[(int)coord.y] == false) return;
 
