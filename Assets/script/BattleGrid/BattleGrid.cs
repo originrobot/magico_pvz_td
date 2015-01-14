@@ -143,6 +143,7 @@ public class BattleGrid : MonoBehaviour {
 	}
 
 	void Awake () {
+		Application.targetFrameRate = 60;
 		gameObject.tag = "BattleGrid";
 		Init ();
 	}

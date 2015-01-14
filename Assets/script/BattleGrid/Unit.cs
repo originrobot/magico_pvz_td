@@ -188,11 +188,13 @@ public class Unit : MonoBehaviour
 		{
 			case IDLE_STATE:
 			animator.SetBool ("idle",true);
+			animator.speed = 1f;
 			break;
 			case WALK_STATE:
 			animator.SetBool ("idle",false);
 			break;
 			case ATTACK_STATE:
+			animator.speed = 3/unitVO.getCoolDown();
 			animator.SetTrigger("attack");
 			break;
 			case DIE_STATE:
