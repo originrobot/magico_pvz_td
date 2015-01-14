@@ -17,7 +17,7 @@ public class UnitTypes
 	public const int ARCHER = 4;
 	public const int SHAMAN = 5;
 	public const int ARTIFACT = 6;
-	public const int WARLOARD = 7;
+	public const int WARLORD = 7;
 	public const int WATERELEMENT = 1;
 	public const int FIREELEMENT = 2;
 	public const int WOODELEMENT = 3;

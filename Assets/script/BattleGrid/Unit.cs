@@ -211,7 +211,7 @@ public class Unit : MonoBehaviour
 		initialHP = Hp;
 		initialPosition = transform.position;
 		unitVO.setCoolDownFactor (0);
-		isLeader = unitVO.unitType == UnitTypes.ARTIFACT || unitVO.unitType == UnitTypes.WARLOARD;
+		isLeader = unitVO.unitType == UnitTypes.ARTIFACT || unitVO.unitType == UnitTypes.WARLORD;
 		if(!isMoving&&unitVO.unitType!=UnitTypes.ARTIFACT)
 			StartCoroutine ("FindTarget");
 	}
@@ -438,7 +438,7 @@ public class Unit : MonoBehaviour
 				if(!isAttacking)
 					StartCoroutine("AttackTarget",cooldown);
 			}
-			else if(targets.Count==0 && enemies.Count>0)
+			else if(targets.Count==0 && enemies.Count>0 && !isLeader)
 			{
 				moveUnit();
 			}

@@ -659,7 +659,6 @@ public class BattleGrid : MonoBehaviour {
 			}
 		}
 
-		objects[0, row].Clear();
 
 		// warlord destroyed
 		if (warlord == true) 

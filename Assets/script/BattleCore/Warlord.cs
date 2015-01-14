@@ -12,7 +12,7 @@ public class Warlord:UnitBase
 {
 	public Warlord ()
 	{
-		unitType = UnitTypes.WARLOARD;
+		unitType = UnitTypes.WARLORD;
 		this.attackPower = 100;
 		this.defensePower = 50;
 		this.range = 0;
