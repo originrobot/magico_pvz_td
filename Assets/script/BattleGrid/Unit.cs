@@ -70,7 +70,6 @@ public class Unit : MonoBehaviour
 	public float cost;
 	private bool isAttacking = false;
 	private int currentState = 1;
-	private float speedFactor = 0.02f;
 
 	// for artifact
 	protected int currentLevel = 1;
@@ -145,7 +144,6 @@ public class Unit : MonoBehaviour
 		HP = transform.FindChild ("HPBar").gameObject;
 		dmg_prefab = (GameObject)Resources.Load ("damagePrefab");
 		isTapSelected = false;
-		speed = unitVO.getMovingSpeed() * speedFactor;
 	}
 
 	void Start()
@@ -450,6 +448,7 @@ public class Unit : MonoBehaviour
 	}
 	private void moveUnit()
 	{
+		speed = unitVO.getMovingSpeed() * BattleGrid.instance.getSpeedFactor();
 		if(currentState != WALK_STATE)
 			changeAninationState (WALK_STATE);
 		float step = isEnemy ? -1*speed : speed;

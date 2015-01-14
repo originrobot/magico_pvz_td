@@ -22,7 +22,7 @@ public class Mage: UnitBase
 		criticalFactor = 5.5f;
 		coolDown = 2.5f;
 		coolDownFactor = 0f;
-		movingSpeed = 1.5f;
+		movingSpeed = 3f;
 	}
 	public override float getAttackPower(UnitBase targetUnit)
 	{

@@ -22,7 +22,7 @@ public class Archer:UnitBase
 		criticalFactor = 1.5f;
 		coolDown = 1.5f;
 		coolDownFactor = 0f;
-		movingSpeed = 2f;
+		movingSpeed = 3f;
 	}
 	public override float getAttackPower(UnitBase targetUnit)
 	{

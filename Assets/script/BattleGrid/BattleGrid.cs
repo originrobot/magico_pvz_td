@@ -129,6 +129,8 @@ public class BattleGrid : MonoBehaviour {
 	public float unitSpawnRightAnchor4x3 = 0.28f;
 	private float unitSpawnLeftAnchor = 0f;
 	private float unitSpawnRightAnchor = 0f;
+	private float fps;
+	private float deltaTime;
 	public float publicCDTime
 	{
 		get { return _publicCDTime; }
@@ -323,7 +325,10 @@ public class BattleGrid : MonoBehaviour {
 		warlordArtifact.transform.position+=new Vector3(leftXAnchor,0,0);
 		CDBoostArtifact.transform.position+=new Vector3(leftXAnchor,0,0);
 	}
-
+	public float getSpeedFactor()
+	{
+		return (rightXAnchor - leftXAnchor) * 0.025f / fps;
+	}
 
 	public void bindByBoss()
 	{
@@ -494,6 +499,8 @@ public class BattleGrid : MonoBehaviour {
 	void Update()
 	{
 		if (!gameStarted) return;
+		deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+		fps = 1f / deltaTime;
 //		if (!enemyWarlordArtifact.activeSelf)
 //		{
 //			gameOver(true);
