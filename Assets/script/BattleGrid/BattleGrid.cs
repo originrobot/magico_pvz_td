@@ -379,7 +379,12 @@ public class BattleGrid : MonoBehaviour {
 					spawnSpeedMax = thirdWaveSpwanSpeedMax+1f;
 					unitList = thirdWaveUnits;
 				}
+
 				spawnSpeed = Random.Range(spawnSpeedMin,spawnSpeedMax);
+				if(!enemyCDBoostArtifact.activeSelf)
+					spawnSpeed*=1.3f;
+				if(!enemyManaGenArtifact.activeSelf)
+					spawnSpeed*=1.3f;
 				int r = Random.Range(0,unitList.Count);
 				yield return new WaitForSeconds(spawnSpeed);
 				spawnEnemyUnit(unitList[r]);
@@ -390,7 +395,7 @@ public class BattleGrid : MonoBehaviour {
 	public void spawnEnemyUnit(string prefabName)
 	{
 		List<int> rows = new List<int>();
-		for (int ii = 0; ii < 3; ++ii)
+		for (int ii = 0; ii < 4; ++ii)
 		{
 			rows.Add(ii);
 		}
@@ -403,6 +408,7 @@ public class BattleGrid : MonoBehaviour {
 		if (rows.Count == 0) return;
 		int idx = Random.Range(0, rows.Count);
 		int row = rows[idx];
+		row = row > 2 ? 1 : row;
 
 		GameObject go = GameObject.Instantiate(unitPrefabs[prefabName]);
 		go.transform.parent = transform;
