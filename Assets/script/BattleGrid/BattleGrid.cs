@@ -416,11 +416,6 @@ public class BattleGrid : MonoBehaviour {
 		enemies.Clear ();
 		heroes.Clear ();
 		currentMana = 0.0f;
-		if (manaBar != null)
-		{
-			manaBar.GetComponent<EnergyBar> ().SetValueMax((int)maxMana);
-			updateManaBar ();
-		}
 		enemyManaGenArtifact.SetActive (true);
 		enemyWarlordArtifact.SetActive (true);
 		enemyCDBoostArtifact.SetActive (true);
@@ -449,6 +444,11 @@ public class BattleGrid : MonoBehaviour {
 		objects [0, 1].Add (warlordArtifact.GetComponent<Unit> ());
 		objects [0, 0].Add (CDBoostArtifact.GetComponent<Unit> ());
 
+		if (manaBar != null)
+		{
+			manaBar.GetComponent<EnergyBar> ().SetValueMax((int)maxMana);
+			updateManaBar ();
+		}
 		restartButton.SetActive (false);
 		startButton.SetActive (true);
 

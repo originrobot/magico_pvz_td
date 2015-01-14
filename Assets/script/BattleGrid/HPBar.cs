@@ -22,7 +22,10 @@ public class HPBar : MonoBehaviour
 	{
 
 	}
-
+	public Vector3 getSize()
+	{
+		return HPbar.GetComponent<Renderer> ().bounds.size;
+	}
 	public void SetValueF(float value)
 	{
 		currentValue = HPbar.localScale.x;

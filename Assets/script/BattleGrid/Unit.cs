@@ -86,7 +86,8 @@ public class Unit : MonoBehaviour
 			{
 				transform.Rotate (0,180,0);
 				HP.transform.Rotate (0,180,0);
-				HP.transform.position += new Vector3(-1.1f,0f,0f);
+				float xoffset = HP.GetComponent<HPBar>().getSize().x*-1;
+				HP.transform.position += new Vector3(xoffset,0f,0f);
 				isCastingSkill = false;
 			}
 		}
@@ -107,6 +108,11 @@ public class Unit : MonoBehaviour
 		isStarted = false;
 		_displaySpark = false;
 		gameObject.GetComponent<UnitBase> ().setHP (gameObject.GetComponent<UnitBase> ().getMaxHP());
+		if(unitVO.unitType==UnitTypes.ARTIFACT)
+		{
+			_upgradeArrow.SetActive(true);
+			_upgradeArrow.GetComponent<Renderer>().enabled = false;
+		}
 	}
 	void Awake()
 	{		
@@ -226,7 +232,7 @@ public class Unit : MonoBehaviour
 //		Debug.Log ("OnHit unitId: " +unitId +", character_id: "+character_id);
 
 		GameObject damageObj = Instantiate (dmg_prefab);
-		damageObj.transform.parent = transform;
+		damageObj.transform.parent = gameObject.transform.parent;
 		damageObj.transform.position = transform.position + new Vector3 (-0.2f,2f,0);
 //		DamageTxT.GetComponent<HUDText> ().Add (damage, Color.red, 0f);
 		this._displaySpark = true;
@@ -316,10 +322,12 @@ public class Unit : MonoBehaviour
 
 			_sparkTimer++;
 		}
-
-		if (_sparkTimer >= TIMERLIMIT)
+		else
 		{
 			_spark.GetComponent<Renderer> ().enabled = false;
+		}
+		if (_sparkTimer >= TIMERLIMIT)
+		{
 			_displaySpark = false;
 		}
 		if (Hp<=0)
