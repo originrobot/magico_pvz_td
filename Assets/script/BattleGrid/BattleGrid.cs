@@ -277,12 +277,13 @@ public class BattleGrid : MonoBehaviour {
 		manaGenArtifact.GetComponent<Unit> ().enemy = false;
 		warlordArtifact.GetComponent<Unit> ().enemy = false;
 		CDBoostArtifact.GetComponent<Unit> ().enemy = false;
-		objects [0, 2].Add (enemyManaGenArtifact.GetComponent<Unit> ());
-		objects [0, 1].Add (enemyWarlordArtifact.GetComponent<Unit> ());
-		objects [0, 0].Add (enemyCDBoostArtifact.GetComponent<Unit> ());
-		objects [0, 2].Add (manaGenArtifact.GetComponent<Unit> ());
-		objects [0, 1].Add (warlordArtifact.GetComponent<Unit> ());
-		objects [0, 0].Add (CDBoostArtifact.GetComponent<Unit> ());
+
+		enemyManaGenArtifact.GetComponent<GridObject> ().AssignCoord (0, 2);
+		enemyWarlordArtifact.GetComponent<GridObject> ().AssignCoord (0, 1);
+		enemyCDBoostArtifact.GetComponent<GridObject> ().AssignCoord (0, 0);
+		manaGenArtifact.GetComponent<GridObject> ().AssignCoord (0, 2);
+		warlordArtifact.GetComponent<GridObject> ().AssignCoord (0, 1);
+		CDBoostArtifact.GetComponent<GridObject> ().AssignCoord (0, 0);
 	}
 
 
@@ -426,12 +427,28 @@ public class BattleGrid : MonoBehaviour {
 		manaGenArtifact.SetActive (true);
 		warlordArtifact.SetActive (true);
 		CDBoostArtifact.SetActive (true);
+
+		enemyManaGenArtifact.GetComponent<Unit>().initUnit ();
+		enemyWarlordArtifact.GetComponent<Unit>().initUnit ();
+		enemyCDBoostArtifact.GetComponent<Unit>().initUnit ();
+		manaGenArtifact.GetComponent<Unit>().initUnit ();
+		warlordArtifact.GetComponent<Unit>().initUnit ();
+		CDBoostArtifact.GetComponent<Unit>().initUnit ();
+
 		enemies.Add (enemyManaGenArtifact.GetComponent<Unit> ());
 		enemies.Add (enemyWarlordArtifact.GetComponent<Unit> ());
 		enemies.Add (enemyCDBoostArtifact.GetComponent<Unit> ());
 		heroes.Add (manaGenArtifact.GetComponent<Unit> ());
 		heroes.Add (warlordArtifact.GetComponent<Unit> ());
 		heroes.Add (CDBoostArtifact.GetComponent<Unit> ());
+
+		objects [0, 2].Add (enemyManaGenArtifact.GetComponent<Unit> ());
+		objects [0, 1].Add (enemyWarlordArtifact.GetComponent<Unit> ());
+		objects [0, 0].Add (enemyCDBoostArtifact.GetComponent<Unit> ());
+		objects [0, 2].Add (manaGenArtifact.GetComponent<Unit> ());
+		objects [0, 1].Add (warlordArtifact.GetComponent<Unit> ());
+		objects [0, 0].Add (CDBoostArtifact.GetComponent<Unit> ());
+
 		restartButton.SetActive (false);
 		startButton.SetActive (true);
 
@@ -439,16 +456,16 @@ public class BattleGrid : MonoBehaviour {
 	void Update()
 	{
 		if (!gameStarted) return;
-		if (!enemyWarlordArtifact.activeSelf)
-		{
-			gameOver(true);
-			return;
-		}
-		if(!warlordArtifact.activeSelf)
-		{
-			gameOver (false);
-			return;
-		}
+//		if (!enemyWarlordArtifact.activeSelf)
+//		{
+//			gameOver(true);
+//			return;
+//		}
+//		if(!warlordArtifact.activeSelf)
+//		{
+//			gameOver (false);
+//			return;
+//		}
 	}
 
 	private void gameOver(bool winning)
@@ -589,7 +606,7 @@ public class BattleGrid : MonoBehaviour {
 
 	public void onArtifactDestroyed(int row, bool warlord = false, bool enemy = false)
 	{
-		if (row >= artifactAlives.Count) return;
+		if (row >= artifactAlives.Count||artifactAlives[row]==false) return;
 		artifactAlives [row] = false;
 
 		// kill all unit in the row

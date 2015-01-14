@@ -23,9 +23,20 @@ public class TargetComparer:IComparer <Unit>
 		int result = 0;
 		float xPosition = x.transform.position.x;
 		float yPosition = y.transform.position.x;
-		if(x.isLeader) xPosition = 1000;
-		if(y.isLeader) yPosition = 1000;
-		result = Mathf.FloorToInt (xPosition - yPosition);
+		if(x.isLeader)
+		{
+			xPosition = 1000;
+			if(x.enemy==false)
+				xPosition=-1000;
+		}
+		if(y.isLeader) 
+		{
+			yPosition = 1000;
+			if(y.enemy==false)
+				yPosition=-1000;
+		}
+		result = Mathf.FloorToInt((xPosition - yPosition)*100);
+		if (isEnemy) result= Mathf.FloorToInt((yPosition - xPosition)*100);
 		if (result == 0) result = Mathf.FloorToInt (x.Hp-y.Hp);
 		return result;
 	}

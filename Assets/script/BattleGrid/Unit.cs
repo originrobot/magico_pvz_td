@@ -70,7 +70,7 @@ public class Unit : MonoBehaviour
 	public float cost;
 	private bool isAttacking = false;
 	private int currentState = 1;
-	private float speedFactor = 0.01f;
+	private float speedFactor = 0.02f;
 
 	// for artifact
 	protected int currentLevel = 1;
@@ -106,10 +106,7 @@ public class Unit : MonoBehaviour
 		isTriggeringCritical=false;
 		isStarted = false;
 		_displaySpark = false;
-		if (initialHP != 0f)
-			gameObject.GetComponent<UnitBase> ().setHP (initialHP);
-		if(initialPosition!=Vector3.zero)
-			transform.position = initialPosition;
+		gameObject.GetComponent<UnitBase> ().setHP (gameObject.GetComponent<UnitBase> ().getMaxHP());
 	}
 	void Awake()
 	{		
@@ -529,8 +526,8 @@ public class Unit : MonoBehaviour
 			if (BattleGrid.instance.getMana() > levelUpCost[currentLevel-1])
 			{
 				BattleGrid.instance.ModifyMana(-levelUpCost[currentLevel-1]);
+				_upgradeArrow.GetComponent<Renderer>().enabled = false;
 				++currentLevel;
-				Debug.Log("on tap: "+levelUpCost[currentLevel-1]);
 				onLevelChanged();
 			}
 		}
@@ -542,7 +539,6 @@ public class Unit : MonoBehaviour
 
 	protected virtual void onLevelChanged()
 	{
-		_upgradeArrow.GetComponent<Renderer> ().enabled = false;
 	}
 
 	private void onUpdateMana(float currentMana)
