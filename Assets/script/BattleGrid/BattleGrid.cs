@@ -668,7 +668,7 @@ public class BattleGrid : MonoBehaviour {
 				unitV0.setHP(0);
 			else
 			{
-				if(u.enemy==enemy)
+				if(!u.isLeader)
 					unitV0.setHP(0);
 			}
 		}
