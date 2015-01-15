@@ -182,16 +182,7 @@ public class BattleGrid : MonoBehaviour {
 			GameObject unit_prefab = (GameObject)Resources.Load(str+"Prefab");
 			unitPrefabs[str] = unit_prefab;
 		}
-		objects = new List<Unit>[1, 3];
-		for (int i=0; i<3; i++) 
-		{
-			objects[0,i] = new List<Unit>();
-		}
-		artifactAlives = new List<bool>();
-		for (int ii = 0; ii < 3; ++ii)
-		{
-			artifactAlives.Add(true);
-		}
+
 
 		initButtons ();
 		startGame ();
@@ -492,6 +483,17 @@ public class BattleGrid : MonoBehaviour {
 		objects [0, 2].Add (manaGenArtifact.GetComponent<Unit> ());
 		objects [0, 1].Add (warlordArtifact.GetComponent<Unit> ());
 		objects [0, 0].Add (CDBoostArtifact.GetComponent<Unit> ());
+
+		objects = new List<Unit>[1, 3];
+		for (int i=0; i<3; i++) 
+		{
+			objects[0,i] = new List<Unit>();
+		}
+		artifactAlives = new List<bool>();
+		for (int ii = 0; ii < 3; ++ii)
+		{
+			artifactAlives.Add(true);
+		}
 
 		if (manaBar != null)
 		{
