@@ -106,6 +106,7 @@ public class Unit : MonoBehaviour
 		isTriggeringCritical=false;
 		isStarted = false;
 		_displaySpark = false;
+		currentLevel = 1;
 		gameObject.GetComponent<UnitBase> ().setHP (gameObject.GetComponent<UnitBase> ().getMaxHP());
 		if(unitVO.unitType==UnitTypes.ARTIFACT)
 		{
