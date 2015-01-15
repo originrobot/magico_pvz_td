@@ -477,6 +477,11 @@ public class BattleGrid : MonoBehaviour {
 		heroes.Add (warlordArtifact.GetComponent<Unit> ());
 		heroes.Add (CDBoostArtifact.GetComponent<Unit> ());
 
+		objects = new List<Unit>[1, 3];
+		for (int i=0; i<3; i++) 
+		{
+			objects[0,i] = new List<Unit>();
+		}
 		objects [0, 2].Add (enemyManaGenArtifact.GetComponent<Unit> ());
 		objects [0, 1].Add (enemyWarlordArtifact.GetComponent<Unit> ());
 		objects [0, 0].Add (enemyCDBoostArtifact.GetComponent<Unit> ());
@@ -484,11 +489,6 @@ public class BattleGrid : MonoBehaviour {
 		objects [0, 1].Add (warlordArtifact.GetComponent<Unit> ());
 		objects [0, 0].Add (CDBoostArtifact.GetComponent<Unit> ());
 
-		objects = new List<Unit>[1, 3];
-		for (int i=0; i<3; i++) 
-		{
-			objects[0,i] = new List<Unit>();
-		}
 		artifactAlives = new List<bool>();
 		for (int ii = 0; ii < 3; ++ii)
 		{
